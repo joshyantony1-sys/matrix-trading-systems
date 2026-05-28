@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrix Trading Systems — Professional Expert Advisors</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a012;
+  --lgold: #f5d060;
+  --dgold: #7a5f00;
+  --bg: #040300;
+  --surf: #0a0800;
+  --surf2: #120f02;
+  --muted: #6a5820;
+  --bright: #ede8d0;
+  --green: #1adf8a;
+  --red: #dc4646;
+  --blue: #4299e1;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--bright);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}
+
+/* GRID BACKGROUND */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(201,160,18,0.03) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(201,160,18,0.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0
+}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;
+    display:flex;justify-content:space-between;align-items:center;
+    background:rgba(4,3,0,0.92);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(201,160,18,0.15)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:3px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;
+             text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:#000;padding:8px 24px;border-radius:2px;
+         text-decoration:none;font-size:12px;font-weight:600;letter-spacing:2px;
+         text-transform:uppercase;transition:all 0.2s}
+.nav-cta:hover{background:var(--lgold)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+      position:relative;padding:120px 40px 80px;text-align:center;overflow:hidden}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+           width:600px;height:600px;border-radius:50%;
+           background:radial-gradient(circle,rgba(201,160,18,0.08) 0%,transparent 70%);
+           pointer-events:none}
+.hero-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+           width:500px;height:500px;border-radius:50%;
+           border:1px solid rgba(201,160,18,0.08);animation:spin 30s linear infinite}
+.hero-ring2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+            width:700px;height:700px;border-radius:50%;
+            border:1px solid rgba(201,160,18,0.04);animation:spin 50s linear infinite reverse}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hero-tag{display:inline-block;padding:5px 16px;border:1px solid rgba(201,160,18,0.4);
+          color:var(--gold);font-size:11px;letter-spacing:4px;text-transform:uppercase;
+          margin-bottom:24px;border-radius:2px;
+          background:rgba(201,160,18,0.05)}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,120px);
+   line-height:0.9;color:var(--bright);letter-spacing:2px;margin-bottom:8px}
+h1 span{color:var(--gold)}
+.hero-sub{font-size:clamp(14px,2vw,18px);color:var(--muted);max-width:560px;
+          margin:24px auto 48px;line-height:1.7;font-weight:300}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:#000;padding:14px 36px;border-radius:2px;
+             text-decoration:none;font-size:12px;font-weight:600;letter-spacing:3px;
+             text-transform:uppercase;transition:all 0.2s;display:inline-block}
+.btn-primary:hover{background:var(--lgold);transform:translateY(-2px)}
+.btn-outline{border:1px solid rgba(201,160,18,0.4);color:var(--gold);padding:14px 36px;
+             border-radius:2px;text-decoration:none;font-size:12px;font-weight:500;
+             letter-spacing:3px;text-transform:uppercase;transition:all 0.2s;display:inline-block}
+.btn-outline:hover{background:rgba(201,160,18,0.08);transform:translateY(-2px)}
+
+/* STATS BAR */
+.stats-bar{padding:24px 40px;border-top:1px solid rgba(201,160,18,0.1);
+           border-bottom:1px solid rgba(201,160,18,0.1);
+           display:flex;justify-content:center;gap:60px;flex-wrap:wrap;
+           background:rgba(10,8,0,0.8);position:relative;z-index:1}
+.stat{text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);
+          letter-spacing:2px;line-height:1}
+.stat-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+
+/* SECTION */
+section{padding:100px 40px;position:relative;z-index:1;max-width:1200px;margin:0 auto}
+.sec-tag{font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;
+         margin-bottom:16px;display:block}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);
+   color:var(--bright);letter-spacing:2px;margin-bottom:16px}
+h2 span{color:var(--gold)}
+.sec-sub{color:var(--muted);font-size:15px;max-width:500px;line-height:1.8;margin-bottom:60px}
+
+/* PRODUCTS */
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2px;
+          background:rgba(201,160,18,0.1)}
+.product-card{background:var(--surf);padding:40px;position:relative;overflow:hidden;
+              transition:all 0.3s}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+                      background:var(--accent)}
+.product-card:hover{background:var(--surf2);transform:translateY(-4px)}
+.gold-card{--accent:var(--gold)}
+.btc-card{--accent:var(--blue)}
+.fx-card{--accent:var(--green)}
+.product-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(201,160,18,0.06);
+             position:absolute;top:20px;right:24px;line-height:1}
+.product-tag{display:inline-block;padding:3px 10px;border:1px solid var(--accent);
+             color:var(--accent);font-size:10px;letter-spacing:3px;text-transform:uppercase;
+             margin-bottom:20px;border-radius:2px;background:rgba(0,0,0,0.3)}
+.product-name{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--bright);
+              letter-spacing:2px;margin-bottom:6px}
+.product-sym{font-size:13px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
+.product-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.product-strats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.strat-badge{padding:3px 10px;background:rgba(201,160,18,0.06);border:1px solid rgba(201,160,18,0.15);
+             color:var(--muted);font-size:10px;letter-spacing:1px;border-radius:2px}
+.product-price{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:600;
+               color:var(--accent);margin-bottom:20px}
+.product-price span{font-size:14px;color:var(--muted);font-weight:300;margin-left:4px}
+.product-link{display:inline-block;padding:10px 24px;border:1px solid var(--accent);
+              color:var(--accent);text-decoration:none;font-size:11px;letter-spacing:2px;
+              text-transform:uppercase;transition:all 0.2s;border-radius:2px}
+.product-link:hover{background:var(--accent);color:#000}
+
+/* STRATEGIES */
+.strats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;
+             background:rgba(201,160,18,0.08)}
+.strat-card{background:var(--surf);padding:24px;transition:background 0.2s}
+.strat-card:hover{background:var(--surf2)}
+.strat-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:rgba(201,160,18,0.15);
+           line-height:1;margin-bottom:8px}
+.strat-name{font-size:13px;font-weight:600;color:var(--bright);letter-spacing:1px;
+            margin-bottom:6px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase}
+.strat-desc{font-size:11px;color:var(--muted);line-height:1.6}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;
+               background:rgba(201,160,18,0.08)}
+.feature{background:var(--surf);padding:28px;border-left:2px solid transparent;
+         transition:all 0.2s}
+.feature:hover{background:var(--surf2);border-left-color:var(--gold)}
+.feature-icon{width:36px;height:36px;margin-bottom:14px;color:var(--gold)}
+.feature-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;
+               color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.feature-desc{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* LIVE RESULTS */
+.results-box{background:var(--surf);border:1px solid rgba(201,160,18,0.15);padding:40px;
+             display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:24px}
+.result-item{text-align:center;padding:20px;border:1px solid rgba(201,160,18,0.08)}
+.result-val{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1}
+.result-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+
+/* TESTIMONIAL */
+.testimonial{background:var(--surf);border-left:3px solid var(--gold);padding:32px 40px;
+             margin:40px 0;position:relative}
+.testimonial::before{content:'"';font-family:'Bebas Neue',sans-serif;font-size:120px;
+                     color:rgba(201,160,18,0.06);position:absolute;top:-10px;left:20px;line-height:1}
+.testimonial p{font-size:16px;color:var(--bright);line-height:1.8;font-style:italic;
+               position:relative;z-index:1;margin-bottom:16px}
+.testimonial cite{font-size:12px;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+
+/* CTA */
+.cta-section{text-align:center;padding:100px 40px;background:var(--surf);
+             border-top:1px solid rgba(201,160,18,0.1);
+             border-bottom:1px solid rgba(201,160,18,0.1);
+             position:relative;z-index:1}
+.cta-section h2{margin-bottom:16px}
+.cta-section p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 40px;line-height:1.8}
+
+/* FOOTER */
+footer{padding:40px;text-align:center;border-top:1px solid rgba(201,160,18,0.1);
+       position:relative;z-index:1}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);
+             letter-spacing:4px;margin-bottom:16px}
+.footer-links{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;
+              list-style:none;margin-bottom:24px}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;
+                text-transform:uppercase;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-size:12px;color:rgba(106,88,32,0.6);letter-spacing:1px}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,160,18,0.2),transparent);
+         margin:0;position:relative;z-index:1}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp 0.8s ease forwards}
+.delay-1{animation-delay:0.1s}
+.delay-2{animation-delay:0.2s}
+.delay-3{animation-delay:0.3s}
+.delay-4{animation-delay:0.4s}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:8px 0;overflow:hidden;white-space:nowrap;
+        position:relative;z-index:1}
+.ticker-inner{display:inline-block;animation:ticker 20s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker span{color:#000;font-size:11px;font-weight:600;letter-spacing:3px;
+             text-transform:uppercase;margin:0 32px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MATRIX TRADING</div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#strategies">Strategies</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#results">Results</a></li>
+  </ul>
+  <a href="https://www.mql5.com/en/users/joshy_antony/seller" class="nav-cta" target="_blank">Buy on MQL5</a>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker" style="margin-top:64px">
+  <div class="ticker-inner">
+    <span>MATRIX GOLD PRO</span><span>13 STRATEGIES</span><span>LIVE TRADING</span>
+    <span>MATRIX BTC PRO</span><span>ICT CONCEPTS</span><span>DRS MODEL</span>
+    <span>TELEGRAM ALERTS</span><span>LIVE DASHBOARD</span><span>PROP FIRM READY</span>
+    <span>MATRIX GOLD PRO</span><span>13 STRATEGIES</span><span>LIVE TRADING</span>
+    <span>MATRIX BTC PRO</span><span>ICT CONCEPTS</span><span>DRS MODEL</span>
+    <span>TELEGRAM ALERTS</span><span>LIVE DASHBOARD</span><span>PROP FIRM READY</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring2"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-tag fade-up">Professional Expert Advisors — MQL5 Verified</div>
+    <h1 class="fade-up delay-1">TRADE<br><span>LIKE A</span><br>MACHINE</h1>
+    <p class="hero-sub fade-up delay-2">
+      Institutional-grade Expert Advisors for MetaTrader 5.
+      13 strategies, ICT concepts, DRS model, live dashboard
+      and Telegram alerts — all fully automated.
+    </p>
+    <div class="hero-btns fade-up delay-3">
+      <a href="#products" class="btn-primary">View Products</a>
+      <a href="https://youtu.be/HRpc8WpRbRM" class="btn-outline" target="_blank">Watch Demo</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">13</div><div class="stat-lbl">Strategies</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Expert Advisors</div></div>
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-lbl">Automated Trading</div></div>
+  <div class="stat"><div class="stat-num">$348</div><div class="stat-lbl">Complete Bundle</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Automated</div></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products" style="max-width:100%;padding:100px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <span class="sec-tag">Our Products</span>
+    <h2>THREE <span>POWERFUL</span> EAS</h2>
+    <p class="sec-sub">Each EA is purpose-built for its market. Run all three simultaneously for maximum diversification.</p>
+    <div class="products">
+
+      <div class="product-card gold-card">
+        <div class="product-num">01</div>
+        <div class="product-tag">Gold Trading</div>
+        <div class="product-name">MATRIX GOLD PRO</div>
+        <div class="product-sym">XAUUSD — M5 Timeframe</div>
+        <p class="product-desc">The most advanced Gold EA on MQL5. 13 strategies in AUTO mode including ICT Order Blocks, DRS Model, Fair Value Gaps, London and NY Killzones, and DXY Divergence.</p>
+        <div class="product-strats">
+          <span class="strat-badge">13 Strategies</span>
+          <span class="strat-badge">DRS Model</span>
+          <span class="strat-badge">ICT Concepts</span>
+          <span class="strat-badge">Daily Bias</span>
+          <span class="strat-badge">DXY Filter</span>
+        </div>
+        <div class="product-price">$199 <span>one time</span></div>
+        <a href="https://www.mql5.com/en/market/product/178806" class="product-link" target="_blank">Buy on MQL5 →</a>
+      </div>
+
+      <div class="product-card btc-card">
+        <div class="product-num">02</div>
+        <div class="product-tag" style="border-color:var(--blue);color:var(--blue)">Crypto Trading</div>
+        <div class="product-name">MATRIX BTC PRO</div>
+        <div class="product-sym">BTCUSD — M5 Timeframe</div>
+        <p class="product-desc">Optimized for Bitcoin's 24/7 volatility. Market structure detection, volatility squeeze, weekend mode, and DCA system ensure maximum performance around the clock.</p>
+        <div class="product-strats">
+          <span class="strat-badge">9 Strategies</span>
+          <span class="strat-badge">24/7 Trading</span>
+          <span class="strat-badge">Weekend Mode</span>
+          <span class="strat-badge">DCA System</span>
+          <span class="strat-badge">Squeeze Filter</span>
+        </div>
+        <div class="product-price" style="color:var(--blue)">$149 <span>one time</span></div>
+        <a href="https://www.mql5.com/en/market/product/178888" class="product-link" style="border-color:var(--blue);color:var(--blue)" target="_blank">Buy on MQL5 →</a>
+      </div>
+
+      <div class="product-card fx-card">
+        <div class="product-num">03</div>
+        <div class="product-tag" style="border-color:var(--green);color:var(--green)">Forex Trading</div>
+        <div class="product-name">MATRIX FX PRO</div>
+        <div class="product-sym">EURUSD GBPUSD USDJPY — M5</div>
+        <p class="product-desc">Coming soon. Built on the same proven engine as Gold and BTC, optimized for major Forex pairs. Session-based strategies with London and NY overlap focus.</p>
+        <div class="product-strats">
+          <span class="strat-badge">4 Strategies</span>
+          <span class="strat-badge">Major Pairs</span>
+          <span class="strat-badge">Session Based</span>
+          <span class="strat-badge">Low Spread</span>
+          <span class="strat-badge">Coming Soon</span>
+        </div>
+        <div class="product-price" style="color:var(--green)">$149 <span>one time</span></div>
+        <a href="#" class="product-link" style="border-color:var(--green);color:var(--green)">Coming Soon</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STRATEGIES -->
+<section id="strategies">
+  <span class="sec-tag">Gold EA Strategies</span>
+  <h2>13 <span>AUTOMATIC</span> STRATEGIES</h2>
+  <p class="sec-sub">AUTO mode selects the best strategy every candle based on current market conditions.</p>
+  <div class="strats-grid">
+    <div class="strat-card"><div class="strat-num">01</div><div class="strat-name">Trend Following</div><div class="strat-desc">EMA crossover with W1 macro bias and daily filter</div></div>
+    <div class="strat-card"><div class="strat-num">02</div><div class="strat-name">Mean Reversion</div><div class="strat-desc">RSI extremes with Bollinger Band confirmation</div></div>
+    <div class="strat-card"><div class="strat-num">03</div><div class="strat-name">Breakout</div><div class="strat-desc">Donchian channel breakouts with ATR filter</div></div>
+    <div class="strat-card"><div class="strat-num">04</div><div class="strat-name">Session Open</div><div class="strat-desc">London and New York open momentum trades</div></div>
+    <div class="strat-card"><div class="strat-num">05</div><div class="strat-name">Asian Breakout</div><div class="strat-desc">London breaks the Asian session range every day</div></div>
+    <div class="strat-card"><div class="strat-num">06</div><div class="strat-name">Spike Fade</div><div class="strat-desc">Fades post-news spikes at 50% retracement</div></div>
+    <div class="strat-card"><div class="strat-num">07</div><div class="strat-name">London KZ</div><div class="strat-desc">London Killzone pullback entries 08-10 GMT</div></div>
+    <div class="strat-card"><div class="strat-num">08</div><div class="strat-name">Order Blocks</div><div class="strat-desc">ICT institutional order block detection on H1</div></div>
+    <div class="strat-card"><div class="strat-num">09</div><div class="strat-name">DXY Divergence</div><div class="strat-desc">Gold vs Dollar correlation divergence signals</div></div>
+    <div class="strat-card"><div class="strat-num">10</div><div class="strat-name">NY Killzone</div><div class="strat-desc">New York Killzone 13-15 GMT with DXY filter</div></div>
+    <div class="strat-card"><div class="strat-num">11</div><div class="strat-name">Fair Value Gap</div><div class="strat-desc">3-candle imbalance entry at 50% of the gap</div></div>
+    <div class="strat-card"><div class="strat-num">12</div><div class="strat-name">Liquidity Hunt</div><div class="strat-desc">Stop hunt detection and fade entry signals</div></div>
+    <div class="strat-card"><div class="strat-num">13</div><div class="strat-name">DRS Model</div><div class="strat-desc">Displacement Retracement Strike state machine</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <span class="sec-tag">Built-In Features</span>
+  <h2>EVERYTHING <span>INCLUDED</span></h2>
+  <p class="sec-sub">No extra tools needed. Everything built in and ready to run from day one.</p>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-title">Live Web Dashboard</div>
+      <div class="feature-desc">Monitor Gold and BTC EAs side by side in any browser. Updates every 2 seconds automatically via JSON output.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Telegram Alerts</div>
+      <div class="feature-desc">Instant notifications for every trade open, close, breakeven, and daily report sent directly to your phone.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Smart Risk Management</div>
+      <div class="feature-desc">AutoLots based on account balance, breakeven at $2, trailing stop, profit lock, and daily loss limit protection.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Pyramid System</div>
+      <div class="feature-desc">Automatically adds to winning positions. Up to 3 pyramid additions on strong trends to maximize profits.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Daily Bias Filter</div>
+      <div class="feature-desc">Uses Daily EMA21 and H4 EMA21 to confirm macro direction. Only trades with the major institutional trend.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">DXY Auto Detection</div>
+      <div class="feature-desc">Automatically finds the Dollar Index symbol on any broker. Works on BlackBull, Switch Markets, IC Markets and more.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">News Filter</div>
+      <div class="feature-desc">Fetches live USD high-impact news from ForexFactory every hour. Pauses trading around major news events.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Trade Journal</div>
+      <div class="feature-desc">Every trade logged to CSV with entry, exit, profit, strategy used, and session. Full performance tracking.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Prop Firm Mode</div>
+      <div class="feature-desc">Strict daily loss limits and drawdown controls. Pass FTMO, My Forex Funds, and other prop firm challenges.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Smart Aggressiveness</div>
+      <div class="feature-desc">CONSERVATIVE to FULL POWER modes adjust automatically based on session, volatility, and win streak.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Market Structure</div>
+      <div class="feature-desc">Detects higher highs/lows for BUY and lower highs/lows for SELL. Only trades with the structure intact.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-title">Volatility Squeeze</div>
+      <div class="feature-desc">Detects Bollinger Band squeeze and waits for expansion. Catches big moves at the perfect breakout moment.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESULTS -->
+<section id="results">
+  <span class="sec-tag">Live Trading Results</span>
+  <h2>REAL <span>ACCOUNT</span> PERFORMANCE</h2>
+  <p class="sec-sub">Trading on a real account with real money. No demo. No backtesting. Verified live results.</p>
+  <div class="results-box">
+    <div class="result-item"><div class="result-val">$2,297</div><div class="result-lbl">Live Balance</div></div>
+    <div class="result-item"><div class="result-val">+$68</div><div class="result-lbl">Today's Profit</div></div>
+    <div class="result-item"><div class="result-val">3.7%</div><div class="result-lbl">Daily Return</div></div>
+    <div class="result-item"><div class="result-val">1:500</div><div class="result-lbl">Leverage</div></div>
+    <div class="result-item"><div class="result-val">22</div><div class="result-lbl">Avg Spread pts</div></div>
+    <div class="result-item"><div class="result-val">24/7</div><div class="result-lbl">BTC Trading</div></div>
+  </div>
+  <div class="testimonial" style="margin-top:40px">
+    <p>The Matrix Gold Pro EA uses institutional concepts like Order Blocks, Fair Value Gaps, and the DRS Model — the same methods used by professional traders. Combined with 13 automatic strategies, it adapts to any market condition.</p>
+    <cite>— Joshy Antony, Developer, Matrix Trading Systems</cite>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <span class="sec-tag" style="display:block;margin-bottom:16px">Start Today</span>
+  <h2>READY TO <span>AUTOMATE</span>?</h2>
+  <p>Join traders using Matrix EAs on BlackBull Markets and Switch Markets. Fully automated. No experience needed.</p>
+  <div class="hero-btns">
+    <a href="https://www.mql5.com/en/market/product/178806" class="btn-primary" target="_blank">Get Gold Pro — $199</a>
+    <a href="https://www.mql5.com/en/market/product/178888" class="btn-outline" target="_blank">Get BTC Pro — $149</a>
+  </div>
+  <p style="margin-top:24px;font-size:12px;color:var(--muted)">One-time payment · Free lifetime updates · Full support included</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MATRIX TRADING SYSTEMS</div>
+  <ul class="footer-links">
+    <li><a href="https://www.mql5.com/en/market/product/178806" target="_blank">Gold Pro EA</a></li>
+    <li><a href="https://www.mql5.com/en/market/product/178888" target="_blank">BTC Pro EA</a></li>
+    <li><a href="https://youtu.be/HRpc8WpRbRM" target="_blank">YouTube</a></li>
+    <li><a href="https://www.mql5.com/en/users/joshy_antony/seller" target="_blank">MQL5 Profile</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Matrix Trading Systems — Joshy Antony · All rights reserved<br>
+  <span style="font-size:11px;opacity:0.5">Trading involves risk. Past performance does not guarantee future results.</span></p>
+</footer>
+
+</body>
+</html>
