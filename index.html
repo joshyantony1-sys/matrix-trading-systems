@@ -118,6 +118,9 @@ h2 span{color:var(--gold)}
               letter-spacing:2px;margin-bottom:6px}
 .product-sym{font-size:13px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
 .product-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.prod-features{margin-bottom:20px;display:flex;flex-direction:column;gap:8px}
+.feat-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);line-height:1.6}
+.feat-icon{font-size:14px;flex-shrink:0;margin-top:1px}
 .product-strats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
 .strat-badge{padding:3px 10px;background:rgba(201,160,18,0.06);border:1px solid rgba(201,160,18,0.15);
              color:var(--muted);font-size:10px;letter-spacing:1px;border-radius:2px}
@@ -278,15 +281,26 @@ footer{padding:40px;text-align:center;border-top:1px solid rgba(201,160,18,0.1);
         <div class="product-tag">Gold Trading</div>
         <div class="product-name">MATRIX GOLD PRO</div>
         <div class="product-sym">XAUUSD — M5 Timeframe</div>
-        <p class="product-desc">The most advanced Gold EA on MQL5. 13 strategies in AUTO mode including ICT Order Blocks, DRS Model, Fair Value Gaps, London and NY Killzones, and DXY Divergence.</p>
+        <p class="product-desc">The most advanced Gold EA on MQL5. 13 strategies in AUTO mode including ICT Order Blocks, DRS Model, Fair Value Gaps, London and NY Killzones, and DXY Divergence. Attach to XAUUSD M5 and it trades automatically.</p>
+        <div class="prod-features">
+          <div class="feat-row"><span class="feat-icon">⚡</span><span>13 strategies in full AUTO mode — EA picks the best entry every candle</span></div>
+          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model — Displacement Retracement Strike full ICT state machine</span></div>
+          <div class="feat-row"><span class="feat-icon">📊</span><span>Fair Value Gap entries at 50% — institutional imbalance method</span></div>
+          <div class="feat-row"><span class="feat-icon">🎯</span><span>London KZ 08:00-10:00 GMT and NY KZ 13:00-15:00 GMT precision entries</span></div>
+          <div class="feat-row"><span class="feat-icon">💵</span><span>DXY Divergence — auto detects Dollar Index on any broker worldwide</span></div>
+          <div class="feat-row"><span class="feat-icon">🛡️</span><span>Daily Bias filter — blocks counter-trend losses automatically</span></div>
+          <div class="feat-row"><span class="feat-icon">🔔</span><span>Live web dashboard + Telegram alerts for every trade</span></div>
+          <div class="feat-row"><span class="feat-icon">🏆</span><span>Prop firm ready — FTMO, My Forex Funds and all major challenges</span></div>
+        </div>
         <div class="product-strats">
           <span class="strat-badge">13 Strategies</span>
           <span class="strat-badge">DRS Model</span>
           <span class="strat-badge">ICT Concepts</span>
           <span class="strat-badge">Daily Bias</span>
           <span class="strat-badge">DXY Filter</span>
+          <span class="strat-badge">Liquidity Hunt</span>
         </div>
-        <div class="product-price">$199 <span>one time</span></div>
+        <div class="product-price">$199 <span>one time — free lifetime updates</span></div>
         <a href="https://www.mql5.com/en/market/product/178806" class="product-link" target="_blank">Buy on MQL5 →</a>
       </div>
 
@@ -295,15 +309,26 @@ footer{padding:40px;text-align:center;border-top:1px solid rgba(201,160,18,0.1);
         <div class="product-tag" style="border-color:var(--blue);color:var(--blue)">Crypto Trading</div>
         <div class="product-name">MATRIX BTC PRO</div>
         <div class="product-sym">BTCUSD — M5 Timeframe</div>
-        <p class="product-desc">Optimized for Bitcoin's 24/7 volatility. Market structure detection, volatility squeeze, weekend mode, and DCA system ensure maximum performance around the clock.</p>
+        <p class="product-desc">Purpose-built for Bitcoin's unique 24/7 volatility. Trades around the clock including weekends with automatic strategy adjustment. The only Bitcoin EA with full ICT concepts and DRS Model built in.</p>
+        <div class="prod-features">
+          <div class="feat-row"><span class="feat-icon">⚡</span><span>13 strategies in AUTO mode — trades 24 hours 7 days a week</span></div>
+          <div class="feat-row"><span class="feat-icon">🌙</span><span>Weekend Mode — RSI thresholds automatically adjust on Saturday and Sunday</span></div>
+          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model for Bitcoin — BTC creates perfect DRS patterns multiple times weekly</span></div>
+          <div class="feat-row"><span class="feat-icon">📊</span><span>Fair Value Gap — Bitcoin always returns to fill its institutional imbalances</span></div>
+          <div class="feat-row"><span class="feat-icon">🎯</span><span>Liquidity Hunt — BTC stop hunts detected before major reversals</span></div>
+          <div class="feat-row"><span class="feat-icon">🛡️</span><span>Daily Bias filter + Market Structure confirmation on every entry</span></div>
+          <div class="feat-row"><span class="feat-icon">📈</span><span>DCA system available — adds position at better price (off by default)</span></div>
+          <div class="feat-row"><span class="feat-icon">🔔</span><span>Telegram alerts 24/7 — never miss a Bitcoin trade while you sleep</span></div>
+        </div>
         <div class="product-strats">
-          <span class="strat-badge">9 Strategies</span>
+          <span class="strat-badge">13 Strategies</span>
           <span class="strat-badge">24/7 Trading</span>
+          <span class="strat-badge">DRS Model</span>
           <span class="strat-badge">Weekend Mode</span>
           <span class="strat-badge">DCA System</span>
-          <span class="strat-badge">Squeeze Filter</span>
+          <span class="strat-badge">ICT Concepts</span>
         </div>
-        <div class="product-price" style="color:var(--blue)">$149 <span>one time</span></div>
+        <div class="product-price" style="color:var(--blue)">$149 <span>one time — free lifetime updates</span></div>
         <a href="https://www.mql5.com/en/market/product/178888" class="product-link" style="border-color:var(--blue);color:var(--blue)" target="_blank">Buy on MQL5 →</a>
       </div>
 
@@ -312,7 +337,17 @@ footer{padding:40px;text-align:center;border-top:1px solid rgba(201,160,18,0.1);
         <div class="product-tag" style="border-color:var(--green);color:var(--green)">Forex Trading</div>
         <div class="product-name">MATRIX FX PRO</div>
         <div class="product-sym">EURUSD GBPUSD USDJPY — M5</div>
-        <p class="product-desc">12 strategies in AUTO mode for major Forex pairs. ICT concepts including DRS Model, Fair Value Gap, London and NY Killzones, DXY Divergence and Asian Range Breakout. Multi-pair capable with unique magic numbers.</p>
+        <p class="product-desc">Institutional-grade Forex trading on all major pairs simultaneously. Run on EURUSD, GBPUSD, USDJPY and AUDUSD at the same time with unique magic numbers for each pair. No conflicts, maximum opportunities.</p>
+        <div class="prod-features">
+          <div class="feat-row"><span class="feat-icon">⚡</span><span>12 strategies in AUTO mode — optimized for Forex market characteristics</span></div>
+          <div class="feat-row"><span class="feat-icon">🌍</span><span>Multi-pair — run on 4+ pairs simultaneously with unique magic numbers</span></div>
+          <div class="feat-row"><span class="feat-icon">🎯</span><span>London KZ 08:00-10:00 GMT and NY KZ 13:00-16:00 GMT best Forex entries</span></div>
+          <div class="feat-row"><span class="feat-icon">🌅</span><span>Asian Range Breakout — trades London breakout above or below Asian range</span></div>
+          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model for Forex — perfect for EURUSD and GBPUSD impulsive moves</span></div>
+          <div class="feat-row"><span class="feat-icon">💵</span><span>DXY Divergence — most powerful for EURUSD and USDJPY correlation trades</span></div>
+          <div class="feat-row"><span class="feat-icon">🛡️</span><span>No weekend trading — Forex market closes Saturday and Sunday</span></div>
+          <div class="feat-row"><span class="feat-icon">🔔</span><span>Live dashboard + Telegram alerts across all pairs simultaneously</span></div>
+        </div>
         <div class="product-strats">
           <span class="strat-badge">12 Strategies</span>
           <span class="strat-badge">Multi-Pair</span>
@@ -321,7 +356,7 @@ footer{padding:40px;text-align:center;border-top:1px solid rgba(201,160,18,0.1);
           <span class="strat-badge">ICT Concepts</span>
           <span class="strat-badge">DXY Filter</span>
         </div>
-        <div class="product-price" style="color:var(--green)">$149 <span>one time</span></div>
+        <div class="product-price" style="color:var(--green)">$149 <span>one time — free lifetime updates</span></div>
         <a href="https://www.mql5.com/en/users/josh198in/seller" class="product-link" style="border-color:var(--green);color:var(--green)" target="_blank">Buy on MQL5 →</a>
       </div>
 
