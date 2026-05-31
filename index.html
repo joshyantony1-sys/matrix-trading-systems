@@ -3,157 +3,593 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matrix Trading Systems -- Professional Expert Advisors</title>
+<title>Matrix Trading Systems — Professional Expert Advisors</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#c9a012;--lgold:#f5d060;--bg:#040300;--surf:#0a0800;--surf2:#120f02;--muted:#6a5820;--bright:#ede8d0;--green:#1adf8a;--red:#dc4646;--blue:#3278f0;--cyan:#28d4ff;--gp-blue:#3278f0;--gp-gold:#ffc832;}
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+:root{--gold:#c9a012;--lgold:#f5d060;--dgold:#7a5f00;--bg:#040300;--surf:#0a0800;--surf2:#120f02;
+  --muted:#6a5820;--bright:#ede8d0;--green:#1adf8a;--red:#dc4646;--blue:#3278f0;--cyan:#28d4ff;
+  --gp-blue:#3278f0;--gp-gold:#ffc832;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--bright);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(201,160,18,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,160,18,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(4,3,0,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,160,18,0.15)}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(201,160,18,0.03) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(201,160,18,0.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;
+    display:flex;justify-content:space-between;align-items:center;
+    background:rgba(4,3,0,0.94);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(201,160,18,0.15)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:3px}
 .nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;
+             text-transform:uppercase;transition:color 0.2s}
 .nav-links a:hover{color:var(--gold)}
-.nav-cta{background:var(--gp-blue);color:#fff;padding:8px 20px;border-radius:2px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--gp-gold)}
-.stats-bar{padding:24px 40px;border-top:1px solid rgba(201,160,18,0.1);border-bottom:1px solid rgba(201,160,18,0.1);display:flex;justify-content:center;gap:60px;flex-wrap:wrap;background:rgba(10,8,0,0.8);position:relative;z-index:1}
+.nav-cta{background:var(--gp-blue);color:#fff;padding:8px 20px;border-radius:2px;
+         text-decoration:none;font-size:12px;font-weight:600;letter-spacing:2px;
+         text-transform:uppercase;transition:all 0.2s;border:1px solid var(--gp-gold)}
+.nav-cta:hover{background:#2560cc}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+      position:relative;padding:120px 40px 80px;text-align:center;overflow:hidden}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+           width:600px;height:600px;border-radius:50%;
+           background:radial-gradient(circle,rgba(50,120,240,0.07) 0%,rgba(201,160,18,0.05) 50%,transparent 70%);
+           pointer-events:none}
+.hero-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+           width:500px;height:500px;border-radius:50%;
+           border:1px solid rgba(50,120,240,0.1);animation:spin 30s linear infinite}
+.hero-ring2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+            width:700px;height:700px;border-radius:50%;
+            border:1px solid rgba(201,160,18,0.05);animation:spin 50s linear infinite reverse}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hero-tag{display:inline-block;padding:5px 16px;border:1px solid rgba(50,120,240,0.5);
+          color:var(--gp-blue);font-size:11px;letter-spacing:4px;text-transform:uppercase;
+          margin-bottom:24px;border-radius:2px;background:rgba(50,120,240,0.05)}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,120px);
+   line-height:0.9;color:var(--bright);letter-spacing:2px;margin-bottom:8px}
+h1 span{color:var(--gp-gold)}
+.hero-sub{font-size:clamp(14px,2vw,18px);color:var(--muted);max-width:600px;
+          margin:24px auto 48px;line-height:1.7;font-weight:300}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gp-blue);color:#fff;padding:14px 36px;border-radius:2px;
+             text-decoration:none;font-size:12px;font-weight:600;letter-spacing:3px;
+             text-transform:uppercase;transition:all 0.2s;display:inline-block;
+             border:1px solid var(--gp-gold)}
+.btn-primary:hover{background:#2560cc;transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#000;padding:14px 36px;border-radius:2px;
+          text-decoration:none;font-size:12px;font-weight:600;letter-spacing:3px;
+          text-transform:uppercase;transition:all 0.2s;display:inline-block}
+.btn-gold:hover{background:var(--lgold);transform:translateY(-2px)}
+.btn-outline{border:1px solid rgba(201,160,18,0.4);color:var(--gold);padding:14px 36px;
+             border-radius:2px;text-decoration:none;font-size:12px;font-weight:500;
+             letter-spacing:3px;text-transform:uppercase;transition:all 0.2s;display:inline-block}
+.btn-outline:hover{background:rgba(201,160,18,0.08);transform:translateY(-2px)}
+.stats-bar{padding:24px 40px;border-top:1px solid rgba(201,160,18,0.1);
+           border-bottom:1px solid rgba(201,160,18,0.1);
+           display:flex;justify-content:center;gap:60px;flex-wrap:wrap;
+           background:rgba(10,8,0,0.8);position:relative;z-index:1}
 .stat{text-align:center}
-.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gp-gold);letter-spacing:2px;line-height:1}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gp-gold);
+          letter-spacing:2px;line-height:1}
 .stat-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
 section{padding:100px 40px;position:relative;z-index:1;max-width:1200px;margin:0 auto}
-.sec-tag{font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;display:block}
-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);color:var(--bright);letter-spacing:2px;margin-bottom:16px}
+.sec-tag{font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;
+         margin-bottom:16px;display:block}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);
+   color:var(--bright);letter-spacing:2px;margin-bottom:16px}
 h2 span{color:var(--gold)}
 .sec-sub{color:var(--muted);font-size:15px;max-width:500px;line-height:1.8;margin-bottom:60px}
-.gp-hero-card{position:relative;background:linear-gradient(135deg,#06081a 0%,#0a0e28 50%,#06081a 100%);border:1px solid rgba(50,120,240,0.4);border-radius:4px;padding:60px;overflow:hidden;margin-bottom:60px}
-.gp-hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))}
-.gp-badge{display:inline-block;padding:4px 14px;background:rgba(50,120,240,0.15);border:1px solid var(--gp-blue);color:var(--gp-blue);font-size:10px;letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-bottom:20px}
-.gp-premium-badge{display:inline-block;padding:4px 14px;background:rgba(255,200,50,0.15);border:1px solid var(--gp-gold);color:var(--gp-gold);font-size:10px;letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-left:10px}
-.gp-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,80px);color:var(--bright);letter-spacing:3px;line-height:0.9;margin-bottom:12px}
+
+/* GOLDMAN PRO HERO CARD */
+.gp-hero-card{position:relative;background:linear-gradient(135deg,#06081a 0%,#0a0e28 50%,#06081a 100%);
+              border:1px solid rgba(50,120,240,0.4);border-radius:4px;padding:60px;
+              overflow:hidden;margin-bottom:60px}
+.gp-hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+                       background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))}
+.gp-hero-card::after{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
+                      border-radius:50%;background:radial-gradient(circle,rgba(50,120,240,0.08),transparent 70%);
+                      pointer-events:none}
+.gp-badge{display:inline-block;padding:4px 14px;background:rgba(50,120,240,0.15);
+          border:1px solid var(--gp-blue);color:var(--gp-blue);font-size:10px;
+          letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-bottom:20px}
+.gp-premium-badge{display:inline-block;padding:4px 14px;background:rgba(255,200,50,0.15);
+                  border:1px solid var(--gp-gold);color:var(--gp-gold);font-size:10px;
+                  letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-left:10px}
+.gp-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,80px);
+          color:var(--bright);letter-spacing:3px;line-height:0.9;margin-bottom:12px}
 .gp-title span{color:var(--gp-gold)}
 .gp-sym{font-size:14px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px}
 .gp-desc{font-size:15px;color:#9aadcc;line-height:1.8;max-width:600px;margin-bottom:36px}
 .gp-feats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px;max-width:720px}
 .gp-feat{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#8090b0}
 .gp-feat span:first-child{color:var(--gp-gold);font-size:15px;flex-shrink:0;margin-top:1px}
+.gp-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.gp-strat-badge{padding:4px 12px;background:rgba(50,120,240,0.08);border:1px solid rgba(50,120,240,0.2);
+                color:#6080c0;font-size:10px;letter-spacing:1px;border-radius:2px}
 .gp-price-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .gp-price{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:700;color:var(--gp-gold)}
-.gp-btn{display:inline-block;padding:14px 36px;background:var(--gp-blue);color:#fff;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:2px;border:1px solid var(--gp-gold)}
-.gp-num-badge{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,12vw,160px);color:rgba(50,120,240,0.04);line-height:1;pointer-events:none}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;background:rgba(201,160,18,0.08)}
-.product-card{background:var(--surf);padding:36px;position:relative;overflow:hidden;transition:all 0.3s}
+.gp-price-sub{font-size:13px;color:var(--muted);font-weight:300}
+.gp-btn{display:inline-block;padding:14px 36px;background:var(--gp-blue);color:#fff;
+        text-decoration:none;font-size:12px;font-weight:700;letter-spacing:3px;
+        text-transform:uppercase;border-radius:2px;transition:all 0.2s;
+        border:1px solid var(--gp-gold)}
+.gp-btn:hover{background:#2560cc;transform:translateY(-2px)}
+.gp-num-badge{position:absolute;right:60px;top:50%;transform:translateY(-50%);
+              font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,12vw,160px);
+              color:rgba(50,120,240,0.04);line-height:1;pointer-events:none;user-select:none}
+
+/* PRODUCTS GRID */
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2px;
+          background:rgba(201,160,18,0.08)}
+.product-card{background:var(--surf);padding:40px;position:relative;overflow:hidden;transition:all 0.3s}
 .product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
 .product-card:hover{background:var(--surf2);transform:translateY(-4px)}
-.gold-card{--accent:var(--gold)}.btc-card{--accent:var(--blue)}.fx-card{--accent:var(--green)}
-.product-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(201,160,18,0.06);position:absolute;top:20px;right:24px;line-height:1}
-.product-tag{display:inline-block;padding:3px 10px;border:1px solid var(--accent);color:var(--accent);font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;border-radius:2px}
-.product-name{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--bright);letter-spacing:2px;margin-bottom:6px}
+.gold-card{--accent:var(--gold)}
+.btc-card{--accent:var(--blue)}
+.fx-card{--accent:var(--green)}
+.product-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(201,160,18,0.06);
+             position:absolute;top:20px;right:24px;line-height:1}
+.product-tag{display:inline-block;padding:3px 10px;border:1px solid var(--accent);
+             color:var(--accent);font-size:10px;letter-spacing:3px;text-transform:uppercase;
+             margin-bottom:20px;border-radius:2px;background:rgba(0,0,0,0.3)}
+.product-name{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--bright);
+              letter-spacing:2px;margin-bottom:6px}
 .product-sym{font-size:13px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
 .product-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px}
 .prod-features{margin-bottom:20px;display:flex;flex-direction:column;gap:8px}
 .feat-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);line-height:1.6}
 .feat-icon{font-size:14px;flex-shrink:0;margin-top:1px}
 .product-strats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.strat-badge{padding:3px 10px;background:rgba(201,160,18,0.06);border:1px solid rgba(201,160,18,0.15);color:var(--muted);font-size:10px;letter-spacing:1px;border-radius:2px}
-.product-price{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:600;color:var(--accent);margin-bottom:20px}
+.strat-badge{padding:3px 10px;background:rgba(201,160,18,0.06);border:1px solid rgba(201,160,18,0.15);
+             color:var(--muted);font-size:10px;letter-spacing:1px;border-radius:2px}
+.product-price{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:600;
+               color:var(--accent);margin-bottom:20px}
 .product-price span{font-size:14px;color:var(--muted);font-weight:300;margin-left:4px}
-.product-link{display:inline-block;padding:10px 24px;border:1px solid var(--accent);color:var(--accent);text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;border-radius:2px}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;background:rgba(201,160,18,0.08)}
+.product-link{display:inline-block;padding:10px 24px;border:1px solid var(--accent);
+              color:var(--accent);text-decoration:none;font-size:11px;letter-spacing:2px;
+              text-transform:uppercase;transition:all 0.2s;border-radius:2px}
+.product-link:hover{background:var(--accent);color:#000}
+.strats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;
+             background:rgba(201,160,18,0.08)}
+.strat-card{background:var(--surf);padding:24px;transition:background 0.2s}
+.strat-card:hover{background:var(--surf2)}
+.strat-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:rgba(201,160,18,0.15);
+           line-height:1;margin-bottom:8px}
+.strat-name{font-size:13px;font-weight:600;color:var(--bright);letter-spacing:1px;
+            margin-bottom:6px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase}
+.strat-desc{font-size:11px;color:var(--muted);line-height:1.6}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;
+               background:rgba(201,160,18,0.08)}
 .feature{background:var(--surf);padding:28px;border-left:2px solid transparent;transition:all 0.2s}
 .feature:hover{background:var(--surf2);border-left-color:var(--gold)}
-.feature-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.feature-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;
+               color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
 .feature-desc{font-size:12px;color:var(--muted);line-height:1.7}
-.ticker{background:linear-gradient(90deg,var(--gp-blue),#2060d0,var(--gp-blue));padding:8px 0;overflow:hidden;white-space:nowrap;position:relative;z-index:1}
-.ticker-inner{display:inline-block;animation:ticker 25s linear infinite}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker span{color:#fff;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin:0 32px}
-.ticker span.gold-tick{color:var(--gp-gold)}
-.btn-primary{background:var(--gp-blue);color:#fff;padding:14px 36px;border-radius:2px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;display:inline-block;border:1px solid var(--gp-gold)}
-.btn-gold{background:var(--gold);color:#000;padding:14px 36px;border-radius:2px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;display:inline-block}
-.btn-outline{border:1px solid rgba(201,160,18,0.4);color:var(--gold);padding:14px 36px;border-radius:2px;text-decoration:none;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;display:inline-block}
-.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,160,18,0.2),transparent);margin:0;position:relative;z-index:1}
-.cta-section{text-align:center;padding:100px 40px;background:var(--surf);border-top:1px solid rgba(50,120,240,0.15);border-bottom:1px solid rgba(201,160,18,0.1);position:relative;z-index:1}
+.results-box{background:var(--surf);border:1px solid rgba(201,160,18,0.15);padding:40px;
+             display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:24px}
+.result-item{text-align:center;padding:20px;border:1px solid rgba(201,160,18,0.08)}
+.result-val{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1}
+.result-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+.testimonial{background:var(--surf);border-left:3px solid var(--gp-blue);padding:32px 40px;
+             margin:40px 0;position:relative}
+.testimonial::before{content:'"';font-family:'Bebas Neue',sans-serif;font-size:120px;
+                     color:rgba(50,120,240,0.06);position:absolute;top:-10px;left:20px;line-height:1}
+.testimonial p{font-size:16px;color:var(--bright);line-height:1.8;font-style:italic;
+               position:relative;z-index:1;margin-bottom:16px}
+.testimonial cite{font-size:12px;color:var(--gp-gold);letter-spacing:2px;text-transform:uppercase}
+.cta-section{text-align:center;padding:100px 40px;background:var(--surf);
+             border-top:1px solid rgba(50,120,240,0.15);
+             border-bottom:1px solid rgba(201,160,18,0.1);position:relative;z-index:1}
+.cta-section h2{margin-bottom:16px}
+.cta-section p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 40px;line-height:1.8}
 footer{padding:40px;text-align:center;border-top:1px solid rgba(201,160,18,0.1);position:relative;z-index:1}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);letter-spacing:4px;margin-bottom:16px}
-.footer-links{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;list-style:none;margin-bottom:24px}
-.footer-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);
+             letter-spacing:4px;margin-bottom:16px}
+.footer-links{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;
+              list-style:none;margin-bottom:24px}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;
+                text-transform:uppercase;transition:color 0.2s}
 .footer-links a:hover{color:var(--gold)}
 .footer-copy{font-size:12px;color:rgba(106,88,32,0.6);letter-spacing:1px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,160,18,0.2),transparent);
+         margin:0;position:relative;z-index:1}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp 0.8s ease forwards}
+.delay-1{animation-delay:0.1s}.delay-2{animation-delay:0.2s}
+.delay-3{animation-delay:0.3s}.delay-4{animation-delay:0.4s}
+.ticker{background:linear-gradient(90deg,var(--gp-blue),#2060d0,var(--gp-blue));
+        padding:8px 0;overflow:hidden;white-space:nowrap;position:relative;z-index:1}
+.ticker-inner{display:inline-block;animation:ticker 25s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker span{color:#fff;font-size:11px;font-weight:600;letter-spacing:3px;
+             text-transform:uppercase;margin:0 32px}
+.ticker span.gold-tick{color:var(--gp-gold)}
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <nav>
   <div class="nav-logo">MATRIX TRADING</div>
   <ul class="nav-links">
     <li><a href="#goldman">Goldman Pro</a></li>
-    <li><a href="#quantum">Quantum BTC</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#free" style="color:var(--gold)">Free EA</a></li>
+    <li><a href="#results">Try It</a></li>
   </ul>
   <a href="https://bit.ly/49sGHZX" class="nav-cta" target="_blank">Shop All EAs</a>
 </nav>
-<div class="ticker" style="margin-top:64px"><div class="ticker-inner"><span class="gold-tick">GOLDMAN PRO</span><span>200 STRATEGIES</span><span>ICT SMART MONEY</span><span class="gold-tick">STEALTH MODE</span><span>QUANTUM BTC PRO</span><span>24/7 BITCOIN TRADING</span><span>200 STRATEGIES</span><span>PROP FIRM READY</span><span>MATRIX GOLD PRO</span><span>MATRIX BTC PRO</span><span class="gold-tick">GOLDMAN PRO</span><span>200 STRATEGIES</span><span>ICT SMART MONEY</span><span class="gold-tick">STEALTH MODE</span><span>QUANTUM BTC PRO</span><span>24/7 BITCOIN TRADING</span><span>200 STRATEGIES</span><span>PROP FIRM READY</span><span>MATRIX GOLD PRO</span><span>MATRIX BTC PRO</span></div></div>
-<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 40px 80px;text-align:center">
-  <div>
-    <div style="display:inline-block;padding:5px 16px;border:1px solid rgba(50,120,240,0.5);color:var(--gp-blue);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px;border-radius:2px">Professional Expert Advisors -- MQL5 Verified</div>
-    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,120px);line-height:0.9;color:var(--bright);letter-spacing:2px;margin-bottom:8px">TRADE<br><span style="color:var(--gp-gold)">LIKE AN</span><br>INSTITUTION</h1>
-    <p style="font-size:clamp(14px,2vw,18px);color:var(--muted);max-width:600px;margin:24px auto 48px;line-height:1.7">Now featuring 200 strategies -- Goldman Pro and Quantum BTC Pro are the most advanced trading EAs ever built.</p>
-    <div class="hero-btns"><a href="#goldman" class="btn-primary">Goldman Pro -- $499</a><a href="#quantum" class="btn-gold">Quantum BTC -- $299</a><a href="https://youtu.be/HRpc8WpRbRM" class="btn-outline" target="_blank">Watch Demo</a></div>
+
+<!-- TICKER -->
+<div class="ticker" style="margin-top:64px">
+  <div class="ticker-inner">
+    <span class="gold-tick">GOLDMAN PRO</span><span>100 STRATEGIES</span>
+    <span>ICT SMART MONEY</span><span class="gold-tick">9-POINT CONFLUENCE</span>
+    <span>CONFLUENCE FILTER</span><span>MT5 VERIFIED</span>
+    <span>MATRIX GOLD PRO</span><span>MATRIX BTC PRO</span>
+    <span>MATRIX FX PRO</span><span class="gold-tick">GOLDMAN PRO</span>
+    <span>100 STRATEGIES</span><span>ICT SMART MONEY</span>
+    <span class="gold-tick">9-POINT CONFLUENCE</span><span>CONFLUENCE FILTER</span>
+    <span>MT5 VERIFIED</span><span>MATRIX GOLD PRO</span>
+    <span>MATRIX BTC PRO</span><span>MATRIX FX PRO</span>
   </div>
 </div>
-<div class="stats-bar"><div class="stat"><div class="stat-num">200</div><div class="stat-lbl">Strategies Each</div></div><div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Expert Advisors</div></div><div class="stat"><div class="stat-num">24/7</div><div class="stat-lbl">Automated Trading</div></div><div class="stat"><div class="stat-num">$299</div><div class="stat-lbl">Quantum BTC Pro</div></div><div class="stat"><div class="stat-num">$499</div><div class="stat-lbl">Goldman Pro</div></div><div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Automated</div></div></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring2"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-tag fade-up">Professional Expert Advisors — MQL5 Verified</div>
+    <h1 class="fade-up delay-1">TRADE<br><span>LIKE AN</span><br>INSTITUTION</h1>
+    <p class="hero-sub fade-up delay-2">
+      Goldman Pro runs 100 strategies in AUTO mode — ICT Smart Money concepts,
+      a 9-point confluence filter and fully automated Gold trading on MetaTrader 5.
+    </p>
+    <div class="hero-btns fade-up delay-3">
+      <a href="#goldman" class="btn-primary">Goldman Pro — $499</a>
+      <a href="#products" class="btn-gold">View All EAs</a>
+      <a href="https://youtu.be/HRpc8WpRbRM" class="btn-outline" target="_blank">Watch Demo</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  
+  <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">Expert Advisors</div></div>
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-lbl">Automated Trading</div></div>
+  <div class="stat"><div class="stat-num">100</div><div class="stat-lbl">Strategies (Goldman Pro)</div></div>
+  <div class="stat"><div class="stat-num">$199</div><div class="stat-lbl">Matrix Gold Pro</div></div>
+  <div class="stat"><div class="stat-num">$499</div><div class="stat-lbl">Goldman Pro</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Automated</div></div>
+</div>
+
 <div class="divider"></div>
-<section id="goldman" style="max-width:100%;padding:100px 40px"><div style="max-width:1200px;margin:0 auto">
-<span class="sec-tag" style="color:var(--gp-blue)">Premium EA -- Gold Trading</span>
-<h2>MEET <span style="color:var(--gp-gold)">GOLDMAN</span> PRO</h2>
-<p class="sec-sub">200 strategies. 18 ICT concepts. Broker-proof stealth. The most advanced Gold EA ever built.</p>
-<div class="gp-hero-card"><div class="gp-num-badge">200</div>
-<div><span class="gp-badge">Premium EA</span><span class="gp-premium-badge">200 Strategies</span></div>
-<div class="gp-title">GOLDMAN<br><span>PRO</span></div>
-<div class="gp-sym">XAUUSD -- M5 Timeframe -- MetaTrader 5</div>
-<p class="gp-desc">While most EAs run 3 to 5 strategies, Goldman Pro runs 200 simultaneously -- covering every market condition, every session, and every institutional concept known to professional traders.</p>
-<div class="gp-feats"><div class="gp-feat"><span>+</span><span>200 strategies in AUTO mode -- EA selects the best signal every candle</span></div><div class="gp-feat"><span>+</span><span>18 ICT Smart Money concepts -- Order Blocks, FVG, AMD, Judas Swing and more</span></div><div class="gp-feat"><span>+</span><span>9-point confluence filter -- minimum 4 confirmations required before entry</span></div><div class="gp-feat"><span>+</span><span>Stealth mode -- random delays, lot jitter, comment rotation, round number avoidance</span></div><div class="gp-feat"><span>+</span><span>3-level smart exit -- 30% at 1xATR, 30% at 2xATR, trail remaining 40%</span></div><div class="gp-feat"><span>+</span><span>Daily + H4 + W1 + Monthly bias filter -- all timeframes must agree</span></div><div class="gp-feat"><span>+</span><span>12-row live panel -- every indicator, signal, and status at a glance</span></div><div class="gp-feat"><span>+</span><span>Prop firm ready -- FTMO, MyForexFunds, The5ers fully supported</span></div></div>
-<div class="gp-price-row"><div><div class="gp-price">$499</div><div style="font-size:13px;color:var(--muted)">One time -- Free lifetime updates -- Full support</div></div><a href="https://www.mql5.com/en/market/product/28919" class="gp-btn" target="_blank">Buy Goldman Pro on MQL5</a></div></div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(50,120,240,0.1)"><div style="background:#06081a;padding:36px;border-top:2px solid var(--gp-blue)"><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gp-gold);line-height:1;margin-bottom:8px">200</div><div style="font-size:14px;font-weight:600;color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Strategies in AUTO</div><p style="font-size:12px;color:#6070a0;line-height:1.8">18 ICT concepts, price action, volatility, volume and Gold-specific timing -- all running simultaneously every candle.</p></div><div style="background:#06081a;padding:36px;border-top:2px solid var(--gp-gold)"><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gp-gold);line-height:1;margin-bottom:8px">9/9</div><div style="font-size:14px;font-weight:600;color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Confluence Points</div><p style="font-size:12px;color:#6070a0;line-height:1.8">Every trade checked across 9 confirmation points before entry.</p></div><div style="background:#06081a;padding:36px;border-top:2px solid #28d4ff"><div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gp-gold);line-height:1;margin-bottom:8px">6x</div><div style="font-size:14px;font-weight:600;color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Stealth Layers</div><p style="font-size:12px;color:#6070a0;line-height:1.8">Random delays, lot jitter, SL/TP randomization, comment rotation and round number avoidance.</p></div></div>
-</div></section>
-<div class="divider"></div>
-<section id="products" style="max-width:100%;padding:100px 40px"><div style="max-width:1200px;margin:0 auto">
-<span class="sec-tag">Full Product Line</span>
-<h2>FIVE <span>POWERFUL</span> EAS</h2>
-<p class="sec-sub">Each EA purpose-built for its market. Run simultaneously -- 400+ strategies covering Gold, Bitcoin and Forex 24/7.</p>
-<div class="products">
-<div class="product-card gold-card"><div class="product-num">01</div><div class="product-tag">Gold Trading</div><div class="product-name">MATRIX GOLD PRO</div><div class="product-sym">XAUUSD -- M5 Timeframe</div><p class="product-desc">100 strategies including ICT Order Blocks, DRS Model, Fair Value Gaps, Killzones and DXY Divergence.</p><div class="prod-features"><div class="feat-row"><span class="feat-icon">+</span><span>100 strategies in AUTO mode</span></div><div class="feat-row"><span class="feat-icon">+</span><span>DRS Model -- full ICT state machine</span></div><div class="feat-row"><span class="feat-icon">+</span><span>DXY Divergence -- auto detects on any broker</span></div></div><div class="product-strats"><span class="strat-badge">100 Strategies</span><span class="strat-badge">DRS Model</span><span class="strat-badge">ICT Concepts</span></div><div class="product-price">$199 <span>one time</span></div><a href="https://www.mql5.com/en/market/product/178806" class="product-link" target="_blank">Buy on MQL5</a></div>
-<div class="product-card btc-card"><div class="product-num">02</div><div class="product-tag" style="border-color:var(--blue);color:var(--blue)">Crypto Trading</div><div class="product-name">MATRIX BTC PRO</div><div class="product-sym">BTCUSD -- M5 -- 24/7</div><p class="product-desc">20 strategies trading 24/7 including weekends. ICT concepts adapted for crypto volatility.</p><div class="prod-features"><div class="feat-row"><span class="feat-icon">+</span><span>20 strategies -- 24/7 trading</span></div><div class="feat-row"><span class="feat-icon">+</span><span>DRS Model for Bitcoin</span></div><div class="feat-row"><span class="feat-icon">+</span><span>Liquidity Hunt detection</span></div></div><div class="product-strats"><span class="strat-badge">20 Strategies</span><span class="strat-badge">24/7 Trading</span><span class="strat-badge">ICT Concepts</span></div><div class="product-price" style="color:var(--blue)">$149 <span>one time</span></div><a href="https://www.mql5.com/en/market/product/178888" class="product-link" style="border-color:var(--blue);color:var(--blue)" target="_blank">Buy on MQL5</a></div>
-<div class="product-card btc-card" id="quantum" style="--accent:#c85a14;border-top:2px solid #c85a14"><div class="product-num">03</div><div class="product-tag" style="border-color:#c85a14;color:#c85a14">FEATURED -- Bitcoin</div><div class="product-name" style="color:#ffa500">QUANTUM BTC PRO</div><div class="product-sym">BTCUSD -- M5 -- 24/7</div><p class="product-desc">200 professional strategies -- forked from Goldman Pro and fully adapted for Bitcoin. The most advanced BTC EA ever built.</p><div class="prod-features"><div class="feat-row"><span class="feat-icon">+</span><span>200 strategies -- same engine as Goldman Pro</span></div><div class="feat-row"><span class="feat-icon">+</span><span>24/7 -- Bitcoin never sleeps, neither does the EA</span></div><div class="feat-row"><span class="feat-icon">+</span><span>THE GENESIS -- 50-point ultimate master signal</span></div><div class="feat-row"><span class="feat-icon">+</span><span>Magic 909001 -- runs alongside Goldman Pro</span></div></div><div class="product-strats"><span class="strat-badge" style="background:rgba(200,90,20,0.15);border-color:#c85a14;color:#ffa500">200 Strategies</span><span class="strat-badge" style="background:rgba(200,90,20,0.15);border-color:#c85a14;color:#ffa500">24/7 Crypto</span><span class="strat-badge" style="background:rgba(200,90,20,0.15);border-color:#c85a14;color:#ffa500">THE GENESIS</span></div><div class="product-price" style="color:#ffa500">$299 <span>one time</span></div><a href="https://www.mql5.com/en/market/product/179196" class="product-link" style="border-color:#c85a14;color:#ffa500;background:rgba(200,90,20,0.1)" target="_blank">Buy Quantum BTC Pro</a></div>
-<div class="product-card fx-card"><div class="product-num">04</div><div class="product-tag" style="border-color:var(--green);color:var(--green)">Forex Trading</div><div class="product-name">MATRIX FX PRO</div><div class="product-sym">EURUSD GBPUSD USDJPY -- M5</div><p class="product-desc">20 strategies on all major pairs simultaneously with unique magic numbers.</p><div class="prod-features"><div class="feat-row"><span class="feat-icon">+</span><span>20 strategies -- multi-pair simultaneously</span></div><div class="feat-row"><span class="feat-icon">+</span><span>London and NY Killzone entries</span></div><div class="feat-row"><span class="feat-icon">+</span><span>DXY Divergence for EURUSD/USDJPY</span></div></div><div class="product-strats"><span class="strat-badge">20 Strategies</span><span class="strat-badge">Multi-Pair</span><span class="strat-badge">DXY Filter</span></div><div class="product-price" style="color:var(--green)">$149 <span>one time</span></div><a href="https://www.mql5.com/en/market/product/178888" class="product-link" style="border-color:var(--green);color:var(--green)" target="_blank">Buy on MQL5</a></div>
-</div></div></section>
-<div class="divider"></div>
-<section id="features"><span class="sec-tag">Built-In Features</span><h2>EVERYTHING <span>INCLUDED</span></h2><p class="sec-sub">No extra tools needed. Everything built in and ready from day one.</p><div class="features-grid">
-<div class="feature"><div class="feature-title">200 Strategies</div><div class="feature-desc">Goldman Pro and Quantum BTC Pro each run 200 strategies simultaneously. AUTO mode picks the best signal every candle.</div></div>
-<div class="feature"><div class="feature-title">ICT Smart Money</div><div class="feature-desc">18 full ICT concepts -- Order Blocks, Fair Value Gaps, Power of 3, Judas Swing, Silver Bullet and DRS Model.</div></div>
-<div class="feature"><div class="feature-title">Confluence Filter</div><div class="feature-desc">9-point scoring system checks Daily, H4, W1, Monthly, RSI, candle quality and structure before every entry.</div></div>
-<div class="feature"><div class="feature-title">Stealth Mode</div><div class="feature-desc">6 broker-protection techniques -- random delays, lot variation, SL/TP offsets, comment rotation and round number avoidance.</div></div>
-<div class="feature"><div class="feature-title">3-Level Smart Exit</div><div class="feature-desc">30% at 1xATR moves SL to breakeven. 30% at 2xATR locks profit. Final 40% trails tightly.</div></div>
-<div class="feature"><div class="feature-title">Telegram Alerts</div><div class="feature-desc">Instant notifications for every trade open, close, breakeven and daily report sent to your phone.</div></div>
-<div class="feature"><div class="feature-title">Smart Risk Management</div><div class="feature-desc">AutoLots based on balance, breakeven automation, partial close, trailing stop and daily loss limit protection.</div></div>
-<div class="feature"><div class="feature-title">Daily Bias Filter</div><div class="feature-desc">Uses D1, H4, W1 and Monthly EMAs to confirm macro direction. Only trades with the institutional trend.</div></div>
-<div class="feature"><div class="feature-title">Prop Firm Mode</div><div class="feature-desc">Strict daily loss, drawdown and profit limits. Pass FTMO, MyForexFunds, The5ers and all major prop firms.</div></div>
-<div class="feature"><div class="feature-title">Live Premium Panel</div><div class="feature-desc">12-row real-time dashboard -- indicators, active strategy, confluence score, positions, P/L and stealth status.</div></div>
-<div class="feature"><div class="feature-title">24/7 Bitcoin Trading</div><div class="feature-desc">Quantum BTC Pro never stops -- trades weekends and all sessions with crypto-specific signals.</div></div>
-<div class="feature"><div class="feature-title">THE GENESIS Signal</div><div class="feature-desc">50-point ultimate master signal -- needs 35/50 confirmations. The rarest and most powerful signal in the system.</div></div>
-</div></section>
-<div class="divider"></div>
-<section id="results"><span class="sec-tag">Live Trading Results</span><h2>REAL <span>ACCOUNT</span> PERFORMANCE</h2><p class="sec-sub">Real account, real money. No demo. No backtesting.</p>
-<div style="background:var(--surf);border:1px solid rgba(201,160,18,0.15);padding:40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:24px;margin-bottom:40px"><div style="text-align:center;padding:20px;border:1px solid rgba(201,160,18,0.08)"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold)">$2,481</div><div style="font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px">Live Balance</div></div><div style="text-align:center;padding:20px;border:1px solid rgba(201,160,18,0.08)"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold)">+$168</div><div style="font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px">Today</div></div><div style="text-align:center;padding:20px;border:1px solid rgba(201,160,18,0.08)"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold)">6.8%</div><div style="font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px">Daily Return</div></div><div style="text-align:center;padding:20px;border:1px solid rgba(201,160,18,0.08)"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold)">80%</div><div style="font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px">Win Rate</div></div></div>
-<div style="background:var(--surf);border-left:3px solid var(--gp-blue);padding:32px 40px"><p style="font-size:16px;color:var(--bright);line-height:1.8;font-style:italic;margin-bottom:16px">Goldman Pro represents years of development -- combining 200 institutional strategies with stealth technology, multi-timeframe confluence and a 3-level exit system. This is the most advanced Gold EA I have ever built.</p><cite style="font-size:12px;color:var(--gp-gold);letter-spacing:2px;text-transform:uppercase">Joshy Antony, Developer, Matrix Trading Systems</cite></div>
+
+<!-- GOLDMAN PRO FEATURED SECTION -->
+<section id="goldman" style="max-width:100%;padding:100px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <span class="sec-tag" style="color:var(--gp-blue)">New — Premium EA</span>
+    <h2>MEET <span style="color:var(--gp-gold)">GOLDMAN</span> PRO</h2>
+    <p class="sec-sub">An advanced Gold EA built with 100 strategies, institutional concepts and multi-timeframe confluence.</p>
+
+    <div class="gp-hero-card">
+      <div class="gp-num-badge">100</div>
+      <div>
+        <span class="gp-badge">Premium EA</span>
+        <span class="gp-premium-badge">100 Strategies</span>
+      </div>
+      <div class="gp-title">GOLDMAN<br><span>PRO</span></div>
+      <div class="gp-sym">XAUUSD — M5 Timeframe — MetaTrader 5</div>
+      <p class="gp-desc">
+        While most EAs run 3 to 5 strategies, Goldman Pro runs 100 simultaneously — covering a wide range of market conditions, sessions, and institutional concepts used by professional traders. Set it to AUTO and let it work.
+      </p>
+      <div class="gp-feats">
+        <div class="gp-feat"><span>⚡</span><span>100 strategies in AUTO mode — EA selects the best signal every candle</span></div>
+        <div class="gp-feat"><span>🧠</span><span>18 ICT Smart Money concepts — Order Blocks, FVG, AMD, Judas Swing and more</span></div>
+        <div class="gp-feat"><span>🎯</span><span>9-point confluence filter — minimum 4 confirmations required before entry</span></div>
+        <div class="gp-feat"><span>🛡️</span><span>Spread, session and slippage filters — entries only within your set conditions</span></div>
+        <div class="gp-feat"><span>📊</span><span>3-level smart exit — 30% at 1xATR, 30% at 2xATR, trail remaining 40%</span></div>
+        <div class="gp-feat"><span>🛡️</span><span>Daily + H4 + W1 + Monthly bias filter — all timeframes must agree</span></div>
+        <div class="gp-feat"><span>📱</span><span>12-row live panel — every indicator, signal, and status at a glance</span></div>
+        <div class="gp-feat"><span>🏆</span><span>Prop firm ready — FTMO, MyForexFunds, The5ers fully supported</span></div>
+      </div>
+      <div class="gp-badges">
+        <span class="gp-strat-badge">ICT Smart Money</span>
+        <span class="gp-strat-badge">Price Action</span>
+        <span class="gp-strat-badge">Candlestick</span>
+        <span class="gp-strat-badge">Volatility</span>
+        <span class="gp-strat-badge">Session Timing</span>
+        <span class="gp-strat-badge">Volume Analysis</span>
+        <span class="gp-strat-badge">Multi-Timeframe</span>
+        <span class="gp-strat-badge">Gold Specific</span>
+        <span class="gp-strat-badge">Statistical</span>
+        <span class="gp-strat-badge">Risk Limits</span>
+        <span class="gp-strat-badge">Confluence Filter</span>
+        <span class="gp-strat-badge">DXY Divergence</span>
+      </div>
+      <div class="gp-price-row">
+        <div>
+          <div class="gp-price">$499</div>
+          <div class="gp-price-sub">One time · Free lifetime updates · Full support</div>
+        </div>
+        <a href="https://www.mql5.com/en/market/product/179161" class="gp-btn" target="_blank">Buy Goldman Pro on MQL5 →</a>
+        <a href="https://www.mql5.com/en/market/product/179161" target="_blank"
+           style="display:inline-block;padding:14px 28px;border:1px solid rgba(255,200,50,0.3);color:var(--gp-gold);text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;border-radius:2px;transition:all 0.2s">
+          Free Demo Available →
+        </a>
+      </div>
+    </div>
+
+    <!-- Goldman Pro 3 key highlights -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(50,120,240,0.1)">
+      <div style="background:#06081a;padding:36px;border-top:2px solid var(--gp-blue)">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gp-gold);line-height:1;margin-bottom:8px">100</div>
+        <div style="font-size:14px;font-weight:600;color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Strategies in AUTO</div>
+        <p style="font-size:12px;color:#6070a0;line-height:1.8">ICT concepts, price action patterns, volatility breakouts, candlestick patterns, volume analysis and Gold-specific timing — running together in AUTO mode.</p>
+      </div>
+      <div style="background:#06081a;padding:36px;border-top:2px solid var(--gp-gold)">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gp-gold);line-height:1;margin-bottom:8px">9/9</div>
+        <div style="font-size:14px;font-weight:600;color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Confluence Points</div>
+        <p style="font-size:12px;color:#6070a0;line-height:1.8">Every trade checked across 9 confirmation points — Daily bias, M15 trend, W1 direction, Monthly, RSI, candle quality, H4 level, momentum and DRS state.</p>
+      </div>
+      <div style="background:#06081a;padding:36px;border-top:2px solid #28d4ff">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gp-gold);line-height:1;margin-bottom:8px">3-Level</div>
+        <div style="font-size:14px;font-weight:600;color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Smart Exit</div>
+        <p style="font-size:12px;color:#6070a0;line-height:1.8">Partial close at 1×ATR moves the stop to breakeven, a second partial at 2×ATR locks profit, and the remainder trails to let winners run.</p>
+      </div>
+    </div>
+  </div>
 </section>
+
 <div class="divider"></div>
-<section id="free" style="max-width:900px;margin:0 auto;padding:80px 40px;text-align:center"><span class="sec-tag">100% Free</span><h2 style="margin:16px 0 12px">TRY BEFORE YOU BUY</h2><p style="color:var(--muted);font-size:15px;max-width:600px;margin:0 auto 50px;line-height:1.8">Start with our free Gold Momentum Lock EA -- no payment required.</p>
-<div style="background:var(--surf);border:1px solid rgba(201,160,18,0.3);border-radius:4px;padding:40px;max-width:700px;margin:0 auto;position:relative;overflow:hidden"><div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))"></div><div style="display:inline-block;background:rgba(201,160,18,0.1);border:1px solid var(--gold);color:var(--gold);font-size:11px;letter-spacing:3px;padding:6px 18px;border-radius:2px;margin-bottom:20px">FREE FOREVER</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--bright);margin-bottom:8px">GOLD MOMENTUM LOCK EA</h3><p style="color:var(--muted);font-size:13px;margin-bottom:24px">XAUUSD -- MetaTrader 5 -- M5 Timeframe</p><div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap"><a href="https://www.mql5.com/en/market/product/28919" target="_blank" style="display:inline-block;padding:14px 32px;background:var(--gold);color:#000;font-weight:700;font-size:13px;border-radius:2px;text-decoration:none">DOWNLOAD FREE ON MQL5</a><a href="#goldman" style="display:inline-block;padding:14px 32px;border:1px solid var(--gp-blue);color:var(--gp-blue);font-size:13px;border-radius:2px;text-decoration:none">Upgrade to Goldman Pro</a></div></div>
+
+<!-- MATRIX PRODUCTS -->
+<section id="products" style="max-width:100%;padding:100px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <span class="sec-tag">Matrix Family</span>
+    <h2>FOUR <span>POWERFUL</span> EAS</h2>
+    <p class="sec-sub">Each EA is purpose-built for its market — Gold, Bitcoin and Forex — and can be run together for diversification across instruments.</p>
+    <div class="products">
+
+      <div class="product-card gold-card">
+        <div class="product-num">01</div>
+        <div class="product-tag">Gold Trading</div>
+        <div class="product-name">MATRIX GOLD PRO</div>
+        <div class="product-sym">XAUUSD — M5 Timeframe</div>
+        <p class="product-desc">The original Gold EA. 13 strategies in AUTO mode including ICT Order Blocks, DRS Model, Fair Value Gaps, London and NY Killzones, and DXY Divergence.</p>
+        <div class="prod-features">
+          <div class="feat-row"><span class="feat-icon">⚡</span><span>13 strategies in full AUTO mode — EA picks the best entry every candle</span></div>
+          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model — Displacement Retracement Strike full ICT state machine</span></div>
+          <div class="feat-row"><span class="feat-icon">📊</span><span>Fair Value Gap entries at 50% — institutional imbalance method</span></div>
+          <div class="feat-row"><span class="feat-icon">🎯</span><span>London KZ 08:00-10:00 GMT and NY KZ 13:00-15:00 GMT precision entries</span></div>
+          <div class="feat-row"><span class="feat-icon">💵</span><span>DXY Divergence — auto detects Dollar Index on any broker worldwide</span></div>
+          <div class="feat-row"><span class="feat-icon">🛡️</span><span>Daily Bias filter — blocks counter-trend losses automatically</span></div>
+        </div>
+        <div class="product-strats">
+          <span class="strat-badge">13 Strategies</span><span class="strat-badge">DRS Model</span>
+          <span class="strat-badge">ICT Concepts</span><span class="strat-badge">Daily Bias</span>
+          <span class="strat-badge">DXY Filter</span>
+        </div>
+        <div class="product-price">$199 <span>one time</span></div>
+        <a href="https://www.mql5.com/en/market/product/178806" class="product-link" target="_blank">Buy on MQL5 →</a>
+      </div>
+
+      <div class="product-card btc-card">
+        <div class="product-num">02</div>
+        <div class="product-tag" style="border-color:var(--blue);color:var(--blue)">Crypto Trading</div>
+        <div class="product-name">MATRIX BTC PRO</div>
+        <div class="product-sym">BTCUSD — M5 Timeframe</div>
+        <p class="product-desc">Purpose-built for Bitcoin's unique 24/7 volatility. Trades around the clock including weekends with automatic strategy adjustment and full ICT concepts.</p>
+        <div class="prod-features">
+          <div class="feat-row"><span class="feat-icon">⚡</span><span>13 strategies in AUTO mode — trades 24 hours 7 days a week</span></div>
+          <div class="feat-row"><span class="feat-icon">🌙</span><span>Weekend Mode — RSI thresholds automatically adjust on Saturday and Sunday</span></div>
+          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model for Bitcoin — BTC creates perfect DRS patterns multiple times weekly</span></div>
+          <div class="feat-row"><span class="feat-icon">📊</span><span>Fair Value Gap — Bitcoin always returns to fill its institutional imbalances</span></div>
+          <div class="feat-row"><span class="feat-icon">🎯</span><span>Liquidity Hunt — BTC stop hunts detected before major reversals</span></div>
+          <div class="feat-row"><span class="feat-icon">🔔</span><span>Telegram alerts 24/7 — never miss a Bitcoin trade while you sleep</span></div>
+        </div>
+        <div class="product-strats">
+          <span class="strat-badge">13 Strategies</span><span class="strat-badge">24/7 Trading</span>
+          <span class="strat-badge">DRS Model</span><span class="strat-badge">Weekend Mode</span>
+          <span class="strat-badge">ICT Concepts</span>
+        </div>
+        <div class="product-price" style="color:var(--blue)">$149 <span>one time</span></div>
+        <a href="https://www.mql5.com/en/market/product/178888" class="product-link" style="border-color:var(--blue);color:var(--blue)" target="_blank">Buy on MQL5 →</a>
+      </div>
+
+
+      <div class="product-card fx-card">
+        <div class="product-num">03</div>
+        <div class="product-tag" style="border-color:var(--green);color:var(--green)">Forex Trading</div>
+        <div class="product-name">MATRIX FX PRO</div>
+        <div class="product-sym">EURUSD GBPUSD USDJPY — M5</div>
+        <p class="product-desc">Institutional-grade Forex trading on all major pairs simultaneously. Run on EURUSD, GBPUSD, USDJPY and AUDUSD at the same time with unique magic numbers for each pair.</p>
+        <div class="prod-features">
+          <div class="feat-row"><span class="feat-icon">⚡</span><span>12 strategies in AUTO mode — optimized for Forex market characteristics</span></div>
+          <div class="feat-row"><span class="feat-icon">🌍</span><span>Multi-pair — run on 4+ pairs simultaneously with unique magic numbers</span></div>
+          <div class="feat-row"><span class="feat-icon">🎯</span><span>London KZ 08:00-10:00 GMT and NY KZ 13:00-16:00 GMT best Forex entries</span></div>
+          <div class="feat-row"><span class="feat-icon">🌅</span><span>Asian Range Breakout — trades London breakout above or below Asian range</span></div>
+          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model for Forex — perfect for EURUSD and GBPUSD impulsive moves</span></div>
+          <div class="feat-row"><span class="feat-icon">💵</span><span>DXY Divergence — most powerful for EURUSD and USDJPY correlation trades</span></div>
+        </div>
+        <div class="product-strats">
+          <span class="strat-badge">12 Strategies</span><span class="strat-badge">Multi-Pair</span>
+          <span class="strat-badge">DRS Model</span><span class="strat-badge">Killzones</span>
+          <span class="strat-badge">DXY Filter</span>
+        </div>
+        <div class="product-price" style="color:var(--green)">$149 <span>one time</span></div>
+        <a href="https://www.mql5.com/en/market/product/179027" class="product-link" style="border-color:var(--green);color:var(--green)" target="_blank">Buy on MQL5 →</a>
+      </div>
+
+      <div class="product-card gold-card">
+        <div class="product-num">04</div>
+        <div class="product-tag">Trend Following</div>
+        <div class="product-name">TREND SIGNAL LEVELS EA</div>
+        <div class="product-sym">Any Symbol — Any Timeframe</div>
+        <p class="product-desc">A focused trend-following EA. Detects trend shifts with a Supertrend (ATR) engine, optionally filtered by EMA and RSI, then trades them with structured stop-loss and three take-profit levels.</p>
+        <div class="prod-features">
+          <div class="feat-row"><span class="feat-icon">📈</span><span>Supertrend (ATR) signal engine that adapts to market volatility</span></div>
+          <div class="feat-row"><span class="feat-icon">🔍</span><span>Optional EMA trend filter and RSI filter to avoid chasing extremes</span></div>
+          <div class="feat-row"><span class="feat-icon">🎯</span><span>Automatic stop-loss and up to three take-profits (TP1 / TP2 / TP3)</span></div>
+          <div class="feat-row"><span class="feat-icon">🖱️</span><span>Auto trading, one-click BUY/SELL buttons, or both</span></div>
+          <div class="feat-row"><span class="feat-icon">🛡️</span><span>Break-even, trailing stop, spread filter and daily-loss limit</span></div>
+          <div class="feat-row"><span class="feat-icon">⚙️</span><span>Built-in presets for BTCUSD, XAUUSD and Forex, plus Manual mode</span></div>
+        </div>
+        <div class="product-strats">
+          <span class="strat-badge">Supertrend</span><span class="strat-badge">EMA + RSI</span>
+          <span class="strat-badge">3 Take-Profits</span><span class="strat-badge">Presets</span>
+        </div>
+        <div class="product-price">$30 <span>one time</span></div>
+        <a href="https://www.mql5.com/en/market/product/179329" class="product-link" target="_blank">Buy on MQL5 →</a>
+      </div>
+
+    </div>
+
+    <!-- FREE TOOLS -->
+    <div style="margin-top:60px">
+      <span class="sec-tag">Free Tools &amp; Indicators</span>
+      <h2 style="font-size:clamp(28px,4vw,44px);margin-bottom:12px">FREE <span>ADD-ONS</span></h2>
+      <p class="sec-sub" style="margin-bottom:32px">Free utilities and an indicator to support your trading — no payment required.</p>
+      <div class="strats-grid">
+        <div class="strat-card">
+          <div class="strat-num">01</div>
+          <div class="strat-name">Trend Signal Levels (Indicator)</div>
+          <div class="strat-desc" style="margin-bottom:14px">Educational trend-following indicator — Supertrend engine with EMA/RSI filters that marks signals and projects entry, stop and three take-profit levels.</div>
+          <a href="https://www.mql5.com/en/market/product/179322" class="product-link" target="_blank">Free on MQL5 →</a>
+        </div>
+        <div class="strat-card">
+          <div class="strat-num">02</div>
+          <div class="strat-name">Trader Toolkit Panel</div>
+          <div class="strat-desc" style="margin-bottom:14px">All-in-one manual trading panel — position calculator, one-click order placement and trade management from a single window. You stay in full control.</div>
+          <a href="https://www.mql5.com/en/market/product/179275" class="product-link" target="_blank">Free on MQL5 →</a>
+        </div>
+        <div class="strat-card">
+          <div class="strat-num">03</div>
+          <div class="strat-name">Matrix Trade Condition Monitor</div>
+          <div class="strat-desc" style="margin-bottom:14px">Free panel that attaches to any chart and checks trade conditions in real time — shows why a trade will or will not open. Works with the Matrix EAs.</div>
+          <a href="https://www.mql5.com/en/market/product/179214" class="product-link" target="_blank">Free on MQL5 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<div class="cta-section"><span class="sec-tag" style="display:block;margin-bottom:16px;color:var(--gp-blue)">Start Today</span><h2>READY TO <span>AUTOMATE</span>?</h2><p style="color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 40px;line-height:1.8">Join traders using Matrix EAs. Fully automated. No experience needed.</p><div class="hero-btns"><a href="https://www.mql5.com/en/market/product/28919" class="btn-primary" target="_blank">Goldman Pro -- $499</a><a href="https://www.mql5.com/en/market/product/179196" class="btn-gold" target="_blank">Quantum BTC -- $299</a><a href="https://www.mql5.com/en/market/product/178806" class="btn-outline" target="_blank">Gold Pro -- $199</a><a href="https://www.mql5.com/en/market/product/178888" class="btn-outline" target="_blank">Matrix BTC -- $149</a></div><p style="margin-top:24px;font-size:12px;color:var(--muted)">One-time payment -- Free lifetime updates -- Full support included</p></div>
-<footer><div class="footer-logo">MATRIX TRADING SYSTEMS</div><ul class="footer-links"><li><a href="#goldman">Goldman Pro</a></li><li><a href="#quantum">Quantum BTC</a></li><li><a href="https://www.mql5.com/en/market/product/179196" target="_blank">Quantum BTC Pro</a></li><li><a href="https://www.mql5.com/en/market/product/178806" target="_blank">Gold Pro EA</a></li><li><a href="https://www.mql5.com/en/market/product/178888" target="_blank">Matrix BTC Pro</a></li><li><a href="https://youtu.be/HRpc8WpRbRM" target="_blank">YouTube</a></li><li><a href="https://www.mql5.com/en/users/josh198in" target="_blank">MQL5 Profile</a></li></ul><p class="footer-copy">2026 Matrix Trading Systems -- Joshy Antony<br><span style="font-size:11px;opacity:0.5">Trading involves risk. Past performance does not guarantee future results.</span></p></footer>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <span class="sec-tag">Built-In Features</span>
+  <h2>EVERYTHING <span>INCLUDED</span></h2>
+  <p class="sec-sub">No extra tools needed. Everything built in and ready to run from day one.</p>
+  <div class="features-grid">
+    <div class="feature"><div class="feature-title">100 Strategies</div><div class="feature-desc">Goldman Pro runs 100 strategies in AUTO mode, selecting the best signal each candle based on current market conditions.</div></div>
+    <div class="feature"><div class="feature-title">ICT Smart Money</div><div class="feature-desc">18 full ICT concepts including Order Blocks, Fair Value Gaps, Power of 3, Judas Swing, Silver Bullet, DRS Model and more.</div></div>
+    <div class="feature"><div class="feature-title">Confluence Filter</div><div class="feature-desc">9-point scoring system checks Daily, H4, W1, Monthly bias, RSI, candle quality and structure before every entry.</div></div>
+    <div class="feature"><div class="feature-title">Spread &amp; Session Filters</div><div class="feature-desc">Maximum-spread limits (points or price), a trading-hours window and slippage control keep entries within your chosen conditions.</div></div>
+    <div class="feature"><div class="feature-title">3-Level Smart Exit</div><div class="feature-desc">Partial close at 1×ATR moves SL to breakeven, a second at 2×ATR locks profit, and the remainder trails to let winners run.</div></div>
+    <div class="feature"><div class="feature-title">Telegram Alerts</div><div class="feature-desc">Instant notifications for every trade open, close, breakeven, and daily report sent directly to your phone.</div></div>
+    <div class="feature"><div class="feature-title">Smart Risk Management</div><div class="feature-desc">AutoLots based on balance, breakeven automation, partial close system, trailing stop and daily loss limit protection.</div></div>
+    <div class="feature"><div class="feature-title">Daily Bias Filter</div><div class="feature-desc">Uses D1 EMA21, H4 EMA21, W1 and Monthly EMAs to confirm macro direction. Only trades with the higher-timeframe trend.</div></div>
+    <div class="feature"><div class="feature-title">DXY Divergence</div><div class="feature-desc">Monitors the US Dollar Index for divergence with Gold. Auto detects the DXY symbol on any broker worldwide.</div></div>
+    <div class="feature"><div class="feature-title">Risk-Limit Mode</div><div class="feature-desc">Configurable daily-loss, drawdown and profit limits to help you trade within prop-firm rules and your own risk plan.</div></div>
+    <div class="feature"><div class="feature-title">Adjustable Aggressiveness</div><div class="feature-desc">CONSERVATIVE to FULL POWER modes adjust position sizing and signal sensitivity to match your risk tolerance.</div></div>
+    <div class="feature"><div class="feature-title">Live Panel</div><div class="feature-desc">12-row on-chart dashboard — indicators, active strategy, confluence score, open positions and P/L at a glance.</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT YOU GET / HOW TO EVALUATE -->
+<section id="results">
+  <span class="sec-tag">Before You Buy</span>
+  <h2>TEST IT <span>YOURSELF</span></h2>
+  <p class="sec-sub">Every EA can be evaluated in the MetaTrader 5 Strategy Tester and on a demo account before you risk real money. Try the free Gold Momentum Lock EA first, then upgrade when you're ready.</p>
+  <div class="results-box">
+    <div class="result-item"><div class="result-val">4</div><div class="result-lbl">Expert Advisors</div></div>
+    <div class="result-item"><div class="result-val">MT5</div><div class="result-lbl">Platform</div></div>
+    <div class="result-item"><div class="result-val">XAU·BTC·FX</div><div class="result-lbl">Markets</div></div>
+    <div class="result-item"><div class="result-val">AUTO</div><div class="result-lbl">Hands-Free Mode</div></div>
+    <div class="result-item"><div class="result-val">Free</div><div class="result-lbl">Demo on MQL5</div></div>
+    <div class="result-item"><div class="result-val">1×</div><div class="result-lbl">One-Time Payment</div></div>
+  </div>
+  <div class="testimonial" style="margin-top:40px">
+    <p>Goldman Pro represents years of development — combining 100 strategies with multi-timeframe confluence and a 3-level exit system. It's the most advanced Gold EA I've built.</p>
+    <cite>— Joshy Antony, Developer, Matrix Trading Systems</cite>
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:12px;line-height:1.8;max-width:760px;margin:32px auto 0">
+    Risk disclaimer: Trading involves risk and you can lose money. These products are trading tools and do not constitute financial advice. Past performance does not guarantee future results. Always test thoroughly in the Strategy Tester and on a demo account before using any EA on a live account.
+  </p>
+</section>
+
+<!-- FREE EA -->
+<div class="divider"></div>
+<section id="free" style="max-width:900px;margin:0 auto;padding:80px 40px;text-align:center">
+  <span class="sec-tag">100% Free</span>
+  <h2 style="margin:16px 0 12px">TRY BEFORE YOU BUY</h2>
+  <p style="color:var(--muted);font-size:15px;max-width:600px;margin:0 auto 50px;line-height:1.8">
+    Start with our free Gold Momentum Lock EA — no payment required.
+    See the Matrix engine in action on your own account before upgrading.
+  </p>
+  <div style="background:var(--surf);border:1px solid rgba(201,160,18,0.3);border-radius:4px;padding:40px;max-width:700px;margin:0 auto;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))"></div>
+    <div style="display:inline-block;background:rgba(201,160,18,0.1);border:1px solid var(--gold);color:var(--gold);font-size:11px;letter-spacing:3px;padding:6px 18px;border-radius:2px;margin-bottom:20px">FREE FOREVER</div>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--bright);margin-bottom:8px">GOLD MOMENTUM LOCK EA</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:24px">XAUUSD — MetaTrader 5 — M5 Timeframe</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;text-align:left">
+      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Automated Gold trading on XAUUSD</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Momentum and trend detection</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Smart lock profit system</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Works on any Gold broker</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>No payment required ever</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Gateway to Goldman Pro</span></div>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="https://www.mql5.com/en/market/product/178940" target="_blank"
+         style="display:inline-block;padding:14px 32px;background:var(--gold);color:#000;font-weight:700;font-size:13px;letter-spacing:1px;border-radius:2px;text-decoration:none">
+        DOWNLOAD FREE ON MQL5
+      </a>
+      <a href="#goldman"
+         style="display:inline-block;padding:14px 32px;border:1px solid var(--gp-blue);color:var(--gp-blue);font-size:13px;letter-spacing:1px;border-radius:2px;text-decoration:none">
+        Upgrade to Goldman Pro →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <span class="sec-tag" style="display:block;margin-bottom:16px;color:var(--gp-blue)">Start Today</span>
+  <h2>READY TO <span>AUTOMATE</span>?</h2>
+  <p>Join traders using Matrix and Goldman Pro EAs on BlackBull Markets and IC Markets. Fully automated. No experience needed.</p>
+  <div class="hero-btns">
+    <a href="https://www.mql5.com/en/market/product/179161" class="btn-primary" target="_blank">Goldman Pro — $499</a>
+    <a href="https://www.mql5.com/en/market/product/178806" class="btn-gold" target="_blank">Matrix Gold Pro — $199</a>
+    <a href="https://www.mql5.com/en/market/product/178888" class="btn-outline" target="_blank">Matrix BTC — $149</a>
+    <a href="https://www.mql5.com/en/market/product/179027" class="btn-outline" style="border-color:var(--green);color:var(--green)" target="_blank">Matrix FX — $149</a>
+  </div>
+  <p style="margin-top:24px;font-size:12px;color:var(--muted)">One-time payment · Free lifetime updates · Full support included</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MATRIX TRADING SYSTEMS</div>
+  <ul class="footer-links">
+    <li><a href="#goldman">Goldman Pro</a></li>
+    <li><a href="https://www.mql5.com/en/market/product/178806" target="_blank">Matrix Gold Pro</a></li>
+    <li><a href="https://www.mql5.com/en/market/product/178888" target="_blank">Matrix BTC Pro</a></li>
+    <li><a href="https://www.mql5.com/en/market/product/179027" target="_blank">Matrix FX Pro</a></li>
+    <li><a href="https://www.mql5.com/en/market/product/179329" target="_blank">Trend Signal Levels EA</a></li>
+    <li><a href="#free">Free EA</a></li>
+    <li><a href="https://youtu.be/HRpc8WpRbRM" target="_blank">YouTube</a></li>
+    <li><a href="https://www.mql5.com/en/users/josh198in" target="_blank">MQL5 Profile</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Matrix Trading Systems — Joshy Antony · All rights reserved<br>
+  <span style="font-size:11px;opacity:0.5">Trading involves risk. Past performance does not guarantee future results.</span></p>
+</footer>
+
 </body>
 </html>
