@@ -3,589 +3,801 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matrix Trading Systems — Professional Expert Advisors</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Matrix Trading Systems — Professional MT5 Expert Advisors & Trading Tools</title>
+<meta name="description" content="Professional Expert Advisors and trading tools for MetaTrader 5 — automated Gold hedge-grid trading, M1 scalping and trend-following signals with structured risk controls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#c9a012;--lgold:#f5d060;--dgold:#7a5f00;--bg:#040300;--surf:#0a0800;--surf2:#120f02;
-  --muted:#6a5820;--bright:#ede8d0;--green:#1adf8a;--red:#dc4646;--blue:#3278f0;--cyan:#28d4ff;
-  --gp-blue:#3278f0;--gp-gold:#ffc832;}
+:root{
+  --bg:#08080a;
+  --bg2:#0d0d11;
+  --bg3:#121218;
+  --card:#101016;
+  --line:rgba(212,175,55,.14);
+  --line2:rgba(255,255,255,.06);
+  --gold:#d4af37;
+  --gold-hi:#f3dd8f;
+  --gold-dim:rgba(212,175,55,.55);
+  --txt:#e8e6df;
+  --txt2:#a7a49a;
+  --txt3:#6f6d66;
+  --green:#3ecf8e;
+  --red:#e05252;
+  --radius:14px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--bright);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(201,160,18,0.03) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(201,160,18,0.03) 1px,transparent 1px);
-  background-size:60px 60px;pointer-events:none;z-index:0}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;
-    display:flex;justify-content:space-between;align-items:center;
-    background:rgba(4,3,0,0.94);backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(201,160,18,0.15)}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:3px}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;
-             text-transform:uppercase;transition:color 0.2s}
-.nav-links a:hover{color:var(--gold)}
-.nav-cta{background:var(--gp-blue);color:#fff;padding:8px 20px;border-radius:2px;
-         text-decoration:none;font-size:12px;font-weight:600;letter-spacing:2px;
-         text-transform:uppercase;transition:all 0.2s;border:1px solid var(--gp-gold)}
-.nav-cta:hover{background:#2560cc}
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
-      position:relative;padding:120px 40px 80px;text-align:center;overflow:hidden}
-.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-           width:600px;height:600px;border-radius:50%;
-           background:radial-gradient(circle,rgba(50,120,240,0.07) 0%,rgba(201,160,18,0.05) 50%,transparent 70%);
-           pointer-events:none}
-.hero-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-           width:500px;height:500px;border-radius:50%;
-           border:1px solid rgba(50,120,240,0.1);animation:spin 30s linear infinite}
-.hero-ring2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-            width:700px;height:700px;border-radius:50%;
-            border:1px solid rgba(201,160,18,0.05);animation:spin 50s linear infinite reverse}
-@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-.hero-tag{display:inline-block;padding:5px 16px;border:1px solid rgba(50,120,240,0.5);
-          color:var(--gp-blue);font-size:11px;letter-spacing:4px;text-transform:uppercase;
-          margin-bottom:24px;border-radius:2px;background:rgba(50,120,240,0.05)}
-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,10vw,120px);
-   line-height:0.9;color:var(--bright);letter-spacing:2px;margin-bottom:8px}
-h1 span{color:var(--gp-gold)}
-.hero-sub{font-size:clamp(14px,2vw,18px);color:var(--muted);max-width:600px;
-          margin:24px auto 48px;line-height:1.7;font-weight:300}
-.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.btn-primary{background:var(--gp-blue);color:#fff;padding:14px 36px;border-radius:2px;
-             text-decoration:none;font-size:12px;font-weight:600;letter-spacing:3px;
-             text-transform:uppercase;transition:all 0.2s;display:inline-block;
-             border:1px solid var(--gp-gold)}
-.btn-primary:hover{background:#2560cc;transform:translateY(-2px)}
-.btn-gold{background:var(--gold);color:#000;padding:14px 36px;border-radius:2px;
-          text-decoration:none;font-size:12px;font-weight:600;letter-spacing:3px;
-          text-transform:uppercase;transition:all 0.2s;display:inline-block}
-.btn-gold:hover{background:var(--lgold);transform:translateY(-2px)}
-.btn-outline{border:1px solid rgba(201,160,18,0.4);color:var(--gold);padding:14px 36px;
-             border-radius:2px;text-decoration:none;font-size:12px;font-weight:500;
-             letter-spacing:3px;text-transform:uppercase;transition:all 0.2s;display:inline-block}
-.btn-outline:hover{background:rgba(201,160,18,0.08);transform:translateY(-2px)}
-.stats-bar{padding:24px 40px;border-top:1px solid rgba(201,160,18,0.1);
-           border-bottom:1px solid rgba(201,160,18,0.1);
-           display:flex;justify-content:center;gap:60px;flex-wrap:wrap;
-           background:rgba(10,8,0,0.8);position:relative;z-index:1}
-.stat{text-align:center}
-.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gp-gold);
-          letter-spacing:2px;line-height:1}
-.stat-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
-section{padding:100px 40px;position:relative;z-index:1;max-width:1200px;margin:0 auto}
-.sec-tag{font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;
-         margin-bottom:16px;display:block}
-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);
-   color:var(--bright);letter-spacing:2px;margin-bottom:16px}
-h2 span{color:var(--gold)}
-.sec-sub{color:var(--muted);font-size:15px;max-width:500px;line-height:1.8;margin-bottom:60px}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:rgba(212,175,55,.3)}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.1}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',monospace}
 
-/* LEGACY PREMIUM CARD STYLES (retained) */
-.gp-hero-card{position:relative;background:linear-gradient(135deg,#06081a 0%,#0a0e28 50%,#06081a 100%);
-              border:1px solid rgba(50,120,240,0.4);border-radius:4px;padding:60px;
-              overflow:hidden;margin-bottom:60px}
-.gp-hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
-                       background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))}
-.gp-hero-card::after{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
-                      border-radius:50%;background:radial-gradient(circle,rgba(50,120,240,0.08),transparent 70%);
-                      pointer-events:none}
-.gp-badge{display:inline-block;padding:4px 14px;background:rgba(50,120,240,0.15);
-          border:1px solid var(--gp-blue);color:var(--gp-blue);font-size:10px;
-          letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-bottom:20px}
-.gp-premium-badge{display:inline-block;padding:4px 14px;background:rgba(255,200,50,0.15);
-                  border:1px solid var(--gp-gold);color:var(--gp-gold);font-size:10px;
-                  letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-left:10px}
-.gp-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,80px);
-          color:var(--bright);letter-spacing:3px;line-height:0.9;margin-bottom:12px}
-.gp-title span{color:var(--gp-gold)}
-.gp-sym{font-size:14px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px}
-.gp-desc{font-size:15px;color:#9aadcc;line-height:1.8;max-width:600px;margin-bottom:36px}
-.gp-feats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px;max-width:720px}
-.gp-feat{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#8090b0}
-.gp-feat span:first-child{color:var(--gp-gold);font-size:15px;flex-shrink:0;margin-top:1px}
-.gp-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
-.gp-strat-badge{padding:4px 12px;background:rgba(50,120,240,0.08);border:1px solid rgba(50,120,240,0.2);
-                color:#6080c0;font-size:10px;letter-spacing:1px;border-radius:2px}
-.gp-price-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.gp-price{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:700;color:var(--gp-gold)}
-.gp-price-sub{font-size:13px;color:var(--muted);font-weight:300}
-.gp-btn{display:inline-block;padding:14px 36px;background:var(--gp-blue);color:#fff;
-        text-decoration:none;font-size:12px;font-weight:700;letter-spacing:3px;
-        text-transform:uppercase;border-radius:2px;transition:all 0.2s;
-        border:1px solid var(--gp-gold)}
-.gp-btn:hover{background:#2560cc;transform:translateY(-2px)}
-.gp-num-badge{position:absolute;right:60px;top:50%;transform:translateY(-50%);
-              font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,12vw,160px);
-              color:rgba(50,120,240,0.04);line-height:1;pointer-events:none;user-select:none}
+/* ---------- utility ---------- */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold-dim)}
+.sec-title{font-size:clamp(34px,4.6vw,54px);letter-spacing:.01em;margin-bottom:14px}
+.sec-sub{color:var(--txt2);max-width:640px;font-size:16.5px}
+.section{padding:110px 0}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
 
-/* PRODUCTS GRID */
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2px;
-          background:rgba(201,160,18,0.08)}
-.product-card{background:var(--surf);padding:40px;position:relative;overflow:hidden;transition:all 0.3s}
-.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
-.product-card:hover{background:var(--surf2);transform:translateY(-4px)}
-.gold-card{--accent:var(--gold)}
-.btc-card{--accent:var(--blue)}
-.fx-card{--accent:var(--green)}
-.product-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(201,160,18,0.06);
-             position:absolute;top:20px;right:24px;line-height:1}
-.product-tag{display:inline-block;padding:3px 10px;border:1px solid var(--accent);
-             color:var(--accent);font-size:10px;letter-spacing:3px;text-transform:uppercase;
-             margin-bottom:20px;border-radius:2px;background:rgba(0,0,0,0.3)}
-.product-name{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--bright);
-              letter-spacing:2px;margin-bottom:6px}
-.product-sym{font-size:13px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
-.product-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px}
-.prod-features{margin-bottom:20px;display:flex;flex-direction:column;gap:8px}
-.feat-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);line-height:1.6}
-.feat-icon{font-size:14px;flex-shrink:0;margin-top:1px}
-.product-strats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.strat-badge{padding:3px 10px;background:rgba(201,160,18,0.06);border:1px solid rgba(201,160,18,0.15);
-             color:var(--muted);font-size:10px;letter-spacing:1px;border-radius:2px}
-.product-price{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:600;
-               color:var(--accent);margin-bottom:20px}
-.product-price span{font-size:14px;color:var(--muted);font-weight:300;margin-left:4px}
-.product-link{display:inline-block;padding:10px 24px;border:1px solid var(--accent);
-              color:var(--accent);text-decoration:none;font-size:11px;letter-spacing:2px;
-              text-transform:uppercase;transition:all 0.2s;border-radius:2px}
-.product-link:hover{background:var(--accent);color:#000}
-.strats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;
-             background:rgba(201,160,18,0.08)}
-.strat-card{background:var(--surf);padding:24px;transition:background 0.2s}
-.strat-card:hover{background:var(--surf2)}
-.strat-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:rgba(201,160,18,0.15);
-           line-height:1;margin-bottom:8px}
-.strat-name{font-size:13px;font-weight:600;color:var(--bright);letter-spacing:1px;
-            margin-bottom:6px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase}
-.strat-desc{font-size:11px;color:var(--muted);line-height:1.6}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;
-               background:rgba(201,160,18,0.08)}
-.feature{background:var(--surf);padding:28px;border-left:2px solid transparent;transition:all 0.2s}
-.feature:hover{background:var(--surf2);border-left-color:var(--gold)}
-.feature-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;
-               color:var(--bright);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.feature-desc{font-size:12px;color:var(--muted);line-height:1.7}
-.results-box{background:var(--surf);border:1px solid rgba(201,160,18,0.15);padding:40px;
-             display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:24px}
-.result-item{text-align:center;padding:20px;border:1px solid rgba(201,160,18,0.08)}
-.result-val{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1}
-.result-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
-.testimonial{background:var(--surf);border-left:3px solid var(--gp-blue);padding:32px 40px;
-             margin:40px 0;position:relative}
-.testimonial::before{content:'"';font-family:'Bebas Neue',sans-serif;font-size:120px;
-                     color:rgba(50,120,240,0.06);position:absolute;top:-10px;left:20px;line-height:1}
-.testimonial p{font-size:16px;color:var(--bright);line-height:1.8;font-style:italic;
-               position:relative;z-index:1;margin-bottom:16px}
-.testimonial cite{font-size:12px;color:var(--gp-gold);letter-spacing:2px;text-transform:uppercase}
-.cta-section{text-align:center;padding:100px 40px;background:var(--surf);
-             border-top:1px solid rgba(50,120,240,0.15);
-             border-bottom:1px solid rgba(201,160,18,0.1);position:relative;z-index:1}
-.cta-section h2{margin-bottom:16px}
-.cta-section p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 40px;line-height:1.8}
-footer{padding:40px;text-align:center;border-top:1px solid rgba(201,160,18,0.1);position:relative;z-index:1}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);
-             letter-spacing:4px;margin-bottom:16px}
-.footer-links{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;
-              list-style:none;margin-bottom:24px}
-.footer-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:2px;
-                text-transform:uppercase;transition:color 0.2s}
-.footer-links a:hover{color:var(--gold)}
-.footer-copy{font-size:12px;color:rgba(106,88,32,0.6);letter-spacing:1px}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,160,18,0.2),transparent);
-         margin:0;position:relative;z-index:1}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.fade-up{animation:fadeUp 0.8s ease forwards}
-.delay-1{animation-delay:0.1s}.delay-2{animation-delay:0.2s}
-.delay-3{animation-delay:0.3s}.delay-4{animation-delay:0.4s}
-.ticker{background:linear-gradient(90deg,var(--gp-blue),#2060d0,var(--gp-blue));
-        padding:8px 0;overflow:hidden;white-space:nowrap;position:relative;z-index:1}
-.ticker-inner{display:inline-block;animation:ticker 25s linear infinite}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker span{color:#fff;font-size:11px;font-weight:600;letter-spacing:3px;
-             text-transform:uppercase;margin:0 32px}
-.ticker span.gold-tick{color:var(--gp-gold)}
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:15px 30px;border-radius:9px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.02em;
+  transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease;
+  cursor:pointer;border:1px solid transparent;white-space:nowrap;
+}
+.btn-gold{
+  background:linear-gradient(135deg,#e6c85c 0%,#d4af37 45%,#b3902a 100%);
+  color:#131006;box-shadow:0 6px 26px rgba(212,175,55,.22);
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(212,175,55,.34)}
+.btn-ghost{border-color:rgba(212,175,55,.4);color:var(--gold-hi);background:rgba(212,175,55,.05)}
+.btn-ghost:hover{background:rgba(212,175,55,.12);border-color:var(--gold);transform:translateY(-2px)}
+.btn-dark{border-color:var(--line2);color:var(--txt);background:rgba(255,255,255,.03)}
+.btn-dark:hover{border-color:var(--gold-dim);color:var(--gold-hi);transform:translateY(-2px)}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(8,8,10,.72);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease,background .3s ease;
+}
+nav.scrolled{border-bottom-color:var(--line);background:rgba(8,8,10,.9)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{display:flex;align-items:center;gap:11px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;letter-spacing:.18em}
+.logo .mark{
+  width:32px;height:32px;border:1px solid var(--gold);border-radius:7px;
+  display:grid;place-items:center;color:var(--gold);font-size:15px;
+  background:linear-gradient(135deg,rgba(212,175,55,.16),transparent);
+}
+.logo span b{color:var(--gold)}
+.nav-links{display:flex;gap:34px;font-size:13.5px;color:var(--txt2)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--gold-hi)}
+.nav-cta{padding:10px 20px;font-size:13px}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;color:var(--gold);width:40px;height:40px;font-size:18px;cursor:pointer}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--line2);background:rgba(8,8,10,.97)}
+.mobile-menu a{padding:11px 4px;color:var(--txt2);font-size:15px;border-bottom:1px solid rgba(255,255,255,.04)}
+.mobile-menu a:hover{color:var(--gold-hi)}
+.mobile-menu.open{display:flex}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;min-height:100svh;display:flex;align-items:center;
+  padding:150px 0 90px;overflow:hidden;
+}
+#chart-bg{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 45% at 70% 20%,rgba(212,175,55,.10),transparent 65%),
+    radial-gradient(ellipse 70% 60% at 25% 85%,rgba(212,175,55,.05),transparent 60%);
+  pointer-events:none;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,8,10,.25) 0%,rgba(8,8,10,0) 35%,rgba(8,8,10,.9) 92%,var(--bg) 100%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid var(--line);border-radius:100px;
+  padding:8px 18px;font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-hi);
+  background:rgba(212,175,55,.06);margin-bottom:30px;
+}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{
+  font-size:clamp(52px,8vw,104px);
+  letter-spacing:.015em;margin-bottom:26px;max-width:900px;
+}
+.hero h1 .gold{
+  background:linear-gradient(100deg,#f3dd8f 0%,#d4af37 40%,#9a7b24 70%,#e8ca6a 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{max-width:620px;color:var(--txt2);font-size:18px;margin-bottom:40px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:70px}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:1px;
+  background:var(--line2);border:1px solid var(--line2);border-radius:var(--radius);
+  overflow:hidden;
+}
+.hero-stat{background:rgba(13,13,17,.82);padding:20px 16px;text-align:center}
+.hero-stat b{display:block;font-family:'JetBrains Mono',monospace;font-size:19px;color:var(--gold-hi);margin-bottom:4px}
+.hero-stat span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3)}
+
+/* ticker */
+.ticker-band{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);background:var(--bg2);overflow:hidden;padding:13px 0}
+.ticker{display:flex;gap:56px;white-space:nowrap;animation:tick 36s linear infinite;width:max-content}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker span{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--txt3);text-transform:uppercase}
+.ticker span b{color:var(--gold)}
+
+/* ---------- products ---------- */
+.prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:60px}
+.prod{
+  position:relative;background:linear-gradient(180deg,var(--card),var(--bg2));
+  border:1px solid var(--line2);border-radius:var(--radius);
+  padding:40px 36px;display:flex;flex-direction:column;
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+.prod:hover{transform:translateY(-6px);border-color:var(--line);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.prod.flagship{
+  border-color:rgba(212,175,55,.4);
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%,rgba(212,175,55,.13),transparent 60%),
+    linear-gradient(180deg,var(--card),var(--bg2));
+}
+.flag-tag{
+  position:absolute;top:-13px;left:36px;
+  background:linear-gradient(135deg,#e6c85c,#b3902a);color:#131006;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:6px 14px;border-radius:100px;
+}
+.prod-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:6px}
+.prod h3{font-size:31px;letter-spacing:.02em}
+.prod .pair{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.price{text-align:right}
+.price b{font-family:'JetBrains Mono',monospace;font-size:27px;color:var(--gold-hi)}
+.price span{display:block;font-size:11px;color:var(--txt3);letter-spacing:.1em;text-transform:uppercase}
+.prod p.desc{color:var(--txt2);font-size:14.5px;margin-bottom:22px}
+.prod ul{list-style:none;margin-bottom:26px;flex:1}
+.prod ul li{
+  position:relative;padding:7px 0 7px 26px;font-size:14px;color:var(--txt2);
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.prod ul li:last-child{border-bottom:none}
+.prod ul li::before{content:"◆";position:absolute;left:2px;top:8px;color:var(--gold);font-size:9px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.badge{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  border:1px solid var(--line);color:var(--gold-dim);
+  padding:5px 11px;border-radius:100px;background:rgba(212,175,55,.04);
+}
+.prod .btn{width:100%}
+.prod.wide{grid-column:1/-1}
+.rent-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
+.rent{
+  border:1px solid var(--line2);border-radius:9px;background:rgba(255,255,255,.02);
+  padding:12px 10px;text-align:center;transition:border-color .2s;
+}
+.rent:hover{border-color:var(--line)}
+.rent b{display:block;font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--gold-hi)}
+.rent span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3)}
+.rent em{display:block;font-style:normal;font-size:10px;color:var(--green);margin-top:2px}
+@media(max-width:760px){.rent-row{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- features ---------- */
+#features{background:var(--bg2)}
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line2);border:1px solid var(--line2);border-radius:var(--radius);overflow:hidden;margin-top:60px}
+.feat{background:var(--bg2);padding:32px 26px;transition:background .3s ease}
+.feat:hover{background:var(--bg3)}
+.feat .ico{
+  width:42px;height:42px;border:1px solid var(--line);border-radius:10px;
+  display:grid;place-items:center;color:var(--gold);font-size:17px;margin-bottom:18px;
+  background:linear-gradient(135deg,rgba(212,175,55,.1),transparent);
+}
+.feat h4{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;margin-bottom:8px;letter-spacing:.01em}
+.feat p{font-size:13px;color:var(--txt2);line-height:1.55}
+
+/* ---------- track record ---------- */
+.results-flex{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center;margin-top:56px}
+.live-chip{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;
+  color:var(--green);text-transform:uppercase;margin-bottom:18px;
+}
+.live-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 1.6s infinite}
+.results-copy h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:16px}
+.results-copy p{color:var(--txt2);margin-bottom:26px}
+.check-list{list-style:none}
+.check-list li{position:relative;padding:8px 0 8px 30px;color:var(--txt2);font-size:15px}
+.check-list li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}
+.widget-frame{
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  background:var(--bg3);box-shadow:0 30px 80px rgba(0,0,0,.5);
+  padding:10px;
+}
+.widget-frame iframe{width:100%;height:420px;border:0;border-radius:8px;display:block;background:#131318}
+.widget-note{font-size:12px;color:var(--txt3);text-align:center;padding:10px 4px 4px}
+.widget-note a{color:var(--gold-dim)}
+.widget-note a:hover{color:var(--gold-hi)}
+
+/* ---------- free section ---------- */
+.free-hero{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:60px;
+}
+.free-card{
+  position:relative;border:1px solid rgba(212,175,55,.28);border-radius:var(--radius);
+  background:
+    radial-gradient(ellipse 100% 50% at 50% 0%,rgba(212,175,55,.08),transparent 60%),
+    linear-gradient(180deg,var(--card),var(--bg2));
+  padding:40px 36px;display:flex;flex-direction:column;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.free-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.free-tag{
+  position:absolute;top:-13px;left:36px;
+  background:var(--bg);border:1px solid var(--gold);color:var(--gold-hi);
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.2em;
+  padding:6px 14px;border-radius:100px;text-transform:uppercase;
+}
+.free-card h3{font-size:28px;margin-bottom:4px}
+.free-card .pair{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:20px}
+.free-card ul{list-style:none;margin-bottom:24px;flex:1}
+.free-card ul li{position:relative;padding:6px 0 6px 26px;font-size:14px;color:var(--txt2)}
+.free-card ul li::before{content:"✓";position:absolute;left:2px;color:var(--gold)}
+.risk-note{
+  border:1px solid rgba(224,82,82,.3);background:rgba(224,82,82,.06);
+  border-radius:9px;padding:13px 16px;font-size:12.5px;color:#d99a9a;margin-bottom:24px;
+}
+.free-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.addons{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:26px}
+.addon{
+  border:1px solid var(--line2);border-radius:var(--radius);background:var(--card);
+  padding:28px 24px;transition:transform .3s ease,border-color .3s ease;display:flex;flex-direction:column;
+}
+.addon:hover{transform:translateY(-4px);border-color:var(--line)}
+.addon .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold-dim);margin-bottom:14px;letter-spacing:.2em}
+.addon h4{font-family:'Inter',sans-serif;font-size:15.5px;font-weight:600;margin-bottom:9px}
+.addon p{font-size:13px;color:var(--txt2);flex:1;margin-bottom:18px}
+.addon a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;color:var(--gold);transition:color .2s}
+.addon a:hover{color:var(--gold-hi)}
+
+/* ---------- quote ---------- */
+.quote-band{background:var(--bg2);border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
+.quote-band blockquote{
+  max-width:820px;margin:0 auto;text-align:center;
+  font-family:'Cormorant Garamond',serif;font-size:clamp(23px,3vw,32px);
+  font-weight:500;line-height:1.45;color:var(--txt);
+}
+.quote-band blockquote .q{color:var(--gold);font-size:1.4em}
+.quote-band cite{
+  display:block;margin-top:26px;font-family:'JetBrains Mono',monospace;font-style:normal;
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);
+}
+.quote-band cite b{color:var(--gold-dim)}
+
+/* ---------- final cta ---------- */
+.final{
+  position:relative;text-align:center;overflow:hidden;
+}
+.final::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 55% at 50% 100%,rgba(212,175,55,.13),transparent 65%);
+  pointer-events:none;
+}
+.final .wrap{position:relative;z-index:1}
+.final h2{font-size:clamp(38px,5.5vw,64px);margin-bottom:18px}
+.final>.wrap>p{color:var(--txt2);max-width:560px;margin:0 auto 44px}
+.buy-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.final .fine{font-size:13px;color:var(--txt3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+
+/* ---------- infra cards ---------- */
+.infra{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:56px}
+.infra-card{
+  border:1px solid var(--line2);border-radius:var(--radius);background:var(--card);
+  padding:38px 34px;transition:border-color .3s ease,transform .3s ease;
+}
+.infra-card:hover{border-color:var(--line);transform:translateY(-4px)}
+.infra-card .ico{width:44px;height:44px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;color:var(--gold);font-size:19px;margin-bottom:20px;background:linear-gradient(135deg,rgba(212,175,55,.1),transparent)}
+.infra-card h3{font-size:25px;margin-bottom:10px}
+.infra-card p{color:var(--txt2);font-size:14.5px;margin-bottom:24px}
+.infra-card .fine{display:block;margin-top:14px;font-size:11.5px;color:var(--txt3)}
+
+/* ---------- disclaimer / footer ---------- */
+.disclaimer{
+  border:1px solid var(--line2);border-radius:var(--radius);
+  background:var(--bg2);padding:26px 30px;font-size:13px;color:var(--txt3);
+  margin-top:80px;
+}
+.disclaimer b{color:var(--txt2)}
+footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40px;margin-top:110px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+.foot-grid h5{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3);margin-bottom:18px}
+.foot-grid ul{list-style:none}
+.foot-grid ul li{margin-bottom:11px}
+.foot-grid ul a{font-size:14px;color:var(--txt2);transition:color .2s}
+.foot-grid ul a:hover{color:var(--gold-hi)}
+.foot-brand p{color:var(--txt3);font-size:13.5px;margin-top:16px;max-width:280px}
+.foot-bottom{border-top:1px solid var(--line2);padding-top:28px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--txt3)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1020px){
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .addons{grid-template-columns:repeat(2,1fr)}
+  .results-flex{grid-template-columns:1fr;gap:40px}
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .section{padding:80px 0}
+  .nav-links,.nav-cta{display:none}
+  .burger{display:block}
+  .prod-grid,.free-hero,.infra{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .addons{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .hero{padding-top:120px}
+  .prod,.free-card{padding:32px 24px}
+  .buy-row .btn{width:100%}
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">MATRIX TRADING</div>
-  <ul class="nav-links">
-    <li><a href="#products">Products</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#free" style="color:var(--gold)">Free EA</a></li>
-    <li><a href="#results">Try It</a></li>
-  </ul>
-  <a href="https://bit.ly/49sGHZX" class="nav-cta" target="_blank">Shop All EAs</a>
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo"><span class="mark">▦</span><span>MATRIX<b>·</b>TRADING</span></a>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#features">Features</a>
+      <a href="#results">Live Results</a>
+      <a href="#free">Free Tools</a>
+      <a href="https://youtu.be/HRpc8WpRbRM" target="_blank" rel="noopener">Demo</a>
+    </div>
+    <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" class="btn btn-gold nav-cta">Get Gold Hedge Pro</a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mmenu">
+    <a href="#products">Products</a>
+    <a href="#features">Features</a>
+    <a href="#results">Live Results</a>
+    <a href="#free">Free Tools</a>
+    <a href="https://youtu.be/HRpc8WpRbRM" target="_blank" rel="noopener">Watch Demo</a>
+    <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" style="color:var(--gold-hi)">Get Gold Hedge Pro →</a>
+  </div>
 </nav>
 
-<!-- TICKER -->
-<div class="ticker" style="margin-top:64px">
-  <div class="ticker-inner">
-    <span class="gold-tick">MATRIX GOLD PRO</span><span>ICT SMART MONEY</span>
-    <span>MATRIX BTC PRO</span><span class="gold-tick">9-POINT CONFLUENCE</span>
-    <span>CONFLUENCE FILTER</span><span>MT5 VERIFIED</span>
-    <span>MATRIX FX PRO</span><span>TREND SIGNAL LEVELS</span>
-    <span>FREE EA INSIDE</span><span class="gold-tick">MATRIX GOLD PRO</span>
-    <span>ICT SMART MONEY</span><span>MATRIX BTC PRO</span>
-    <span class="gold-tick">9-POINT CONFLUENCE</span><span>CONFLUENCE FILTER</span>
-    <span>MT5 VERIFIED</span><span>MATRIX FX PRO</span>
-    <span>TREND SIGNAL LEVELS</span><span>FREE EA INSIDE</span>
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <canvas id="chart-bg"></canvas>
+  <div class="wrap hero-inner">
+    <div class="hero-badge"><span class="dot"></span> Live verified track record on MQL5</div>
+    <h1>Trade Like an<br><span class="gold">Institution.</span></h1>
+    <p>Professional Expert Advisors and trading tools for MetaTrader 5 — automated Gold hedge-grid trading, M1 scalping and trend-following signals, all with structured risk controls and full transparency.</p>
+    <div class="hero-ctas">
+      <a href="#products" class="btn btn-gold">Explore the EAs ↓</a>
+      <a href="https://youtu.be/HRpc8WpRbRM" target="_blank" rel="noopener" class="btn btn-ghost">▶ &nbsp;Watch Demo</a>
+      <a href="#free" class="btn btn-dark">Start Free</a>
+    </div>
+    <div class="hero-stats reveal in">
+      <div class="hero-stat"><b>9</b><span>Trading Products</span></div>
+      <div class="hero-stat"><b>4</b><span>Expert Advisors</span></div>
+      <div class="hero-stat"><b>24/7</b><span>Automated Trading</span></div>
+      <div class="hero-stat"><b>6</b><span>Free Tools</span></div>
+      <div class="hero-stat"><b>DEMO</b><span>Free on MQL5</span></div>
+      <div class="hero-stat"><b>100%</b><span>Automated</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker-band">
+  <div class="ticker" id="ticker">
+    <span><b>XAUUSD</b> · Dual-Direction Hedge Grid</span>
+    <span><b>M1 SCALPING</b> · Trend-Filtered Momentum</span>
+    <span><b>SUPERTREND</b> · Entry · SL · TP1·TP2·TP3</span>
+    <span><b>4 RISK MODES</b> · Conservative to Custom</span>
+    <span><b>TELEGRAM</b> · Remote Control From Your Phone</span>
+    <span><b>NEWS FILTER</b> · Built-In MT5 Calendar</span>
+    <span><b>BUY OR RENT</b> · Free Demo on MQL5</span>
   </div>
 </div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-ring"></div>
-  <div class="hero-ring2"></div>
-  <div style="position:relative;z-index:1">
-    <div class="hero-tag fade-up">Professional Expert Advisors — MQL5 Verified</div>
-    <h1 class="fade-up delay-1">TRADE<br><span>LIKE AN</span><br>INSTITUTION</h1>
-    <p class="hero-sub fade-up delay-2">
-      A family of professional Expert Advisors for MetaTrader 5 — automated Gold, Bitcoin
-      and Forex trading built on ICT Smart Money concepts and multi-timeframe confluence.
-    </p>
-    <div class="hero-btns fade-up delay-3">
-      <a href="#products" class="btn-primary">View All EAs</a>
-      <a href="#free" class="btn-gold">Try the Free EA</a>
-      <a href="https://youtu.be/HRpc8WpRbRM" class="btn-outline" target="_blank">Watch Demo</a>
+<!-- ================= PRODUCTS ================= -->
+<section class="section" id="products">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">The Matrix Lineup</div>
+      <h2 class="sec-title">Built to Trade. Built to Protect.</h2>
+      <p class="sec-sub">Automated execution with structured risk controls — from a fully automated Gold hedge-grid system to precision trend-following tools. Every product has a free demo on MQL5.</p>
+    </div>
+
+    <div class="prod-grid">
+
+      <div class="prod flagship wide reveal">
+        <div class="flag-tag">★ Flagship — New</div>
+        <div class="prod-top">
+          <div><h3>Gold Hedge Martingale Pro</h3><div class="pair">XAUUSD — MetaTrader 5 — Hedging Accounts</div></div>
+          <div class="price"><b>$499</b><span>or rent from $35/mo</span></div>
+        </div>
+        <p class="desc">A fully automated Expert Advisor for XAUUSD that combines a dual-direction hedge grid with martingale-based basket recovery. It opens a buy and a sell cycle simultaneously, adds spaced recovery levels when price moves against a side, and closes each basket at a fixed dollar profit target before immediately starting the next cycle.</p>
+        <ul>
+          <li>Hedge grid engine with per-side dollar basket take profit — commission-aware</li>
+          <li>Four risk modes — Conservative, Balanced, Aggressive and fully Custom, with equity protection at 20% / 35% / 50%</li>
+          <li>Live on-chart control panel — balance, equity, floating P/L, both baskets, closed P/L by day / week / month / year, Pause and Close All buttons</li>
+          <li>Telegram remote control — /status, /pause, /resume, /closebuy, /closesell, /closeall from your phone</li>
+          <li>High-impact news filter using the built-in MT5 economic calendar — no external URLs needed</li>
+          <li>Session filter, optional daily profit target, auto lot sizing, margin buffer check and spread filter before every new level</li>
+        </ul>
+        <div class="badges"><span class="badge">Hedge Grid</span><span class="badge">4 Risk Modes</span><span class="badge">Telegram Control</span><span class="badge">News Filter</span><span class="badge">Live Panel</span><span class="badge">Free Demo</span></div>
+        <div class="rent-row">
+          <div class="rent"><b>$35</b><span>1 month</span></div>
+          <div class="rent"><b>$75</b><span>3 months</span><em>save 29%</em></div>
+          <div class="rent"><b>$120</b><span>6 months</span><em>save 43%</em></div>
+          <div class="rent"><b>$200</b><span>1 year</span><em>save 53%</em></div>
+        </div>
+        <div class="risk-note"><b>Risk disclosure:</b> this EA uses a martingale position-sizing model. A sustained one-directional move can exceed the grid depth and lead to significant drawdown or loss, especially when stop loss and equity protection are disabled in Custom mode. Test thoroughly on a demo account first, use only risk capital, and consider keeping the equity protection enabled.</div>
+        <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" class="btn btn-gold">Buy or Rent on MQL5 →</a>
+      </div>
+
+      <div class="prod reveal">
+        <div class="prod-top">
+          <div><h3>Trend Signal Levels Pro</h3><div class="pair">Indicator — Any Symbol · Any Timeframe</div></div>
+          <div class="price"><b>$39</b><span>one time</span></div>
+        </div>
+        <p class="desc">A trend-following indicator for MetaTrader 5. It identifies trend shifts with a Supertrend (ATR) engine, projects complete Entry / Stop Loss / TP1–TP3 levels for every signal, and adds a multi-timeframe trend dashboard — all on one chart.</p>
+        <ul>
+          <li>Supertrend (ATR) signal engine with clear BUY/SELL arrows</li>
+          <li>Multi-timeframe trend dashboard (M5, M15, H1, H4, D1) on a single chart</li>
+          <li>Automatic Entry, Stop Loss and TP1/TP2/TP3 levels with risk-reward labels</li>
+          <li>Optional EMA trend filter and RSI filter to skip overextended signals</li>
+          <li>On-chart info panel — trend, setup, levels and estimated P/L in account currency</li>
+          <li>Push, pop-up and email alerts — signals confirm on bar close</li>
+        </ul>
+        <div class="badges"><span class="badge">Supertrend</span><span class="badge">MTF Dashboard</span><span class="badge">3 Take-Profits</span><span class="badge">Alerts</span></div>
+        <a href="https://www.mql5.com/en/market/product/179383" target="_blank" rel="noopener" class="btn btn-ghost">Buy on MQL5 →</a>
+      </div>
+
+      <div class="prod reveal">
+        <div class="prod-top">
+          <div><h3>Trend Signal Levels EA</h3><div class="pair">Any Symbol — Any Timeframe</div></div>
+          <div class="price"><b>$30</b><span>one time</span></div>
+        </div>
+        <p class="desc">A focused trend-following EA. Detects trend shifts with a Supertrend (ATR) engine, optionally filtered by EMA and RSI, then trades them with structured stop-loss and three take-profit levels.</p>
+        <ul>
+          <li>Supertrend (ATR) signal engine that adapts to market volatility</li>
+          <li>Optional EMA trend filter and RSI filter to avoid chasing extremes</li>
+          <li>Automatic stop-loss and up to three take-profits (TP1 / TP2 / TP3)</li>
+          <li>Auto trading, one-click BUY/SELL buttons, or both</li>
+          <li>Break-even, trailing stop, spread filter and daily-loss limit</li>
+          <li>Built-in presets for BTCUSD, XAUUSD and Forex, plus Manual mode</li>
+        </ul>
+        <div class="badges"><span class="badge">Supertrend</span><span class="badge">EMA + RSI</span><span class="badge">3 Take-Profits</span><span class="badge">Presets</span></div>
+        <a href="https://www.mql5.com/en/market/product/179329" target="_blank" rel="noopener" class="btn btn-ghost">Buy on MQL5 →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Inside Gold Hedge Martingale Pro</div>
+      <h2 class="sec-title">Built Like a Trading Desk.</h2>
+      <p class="sec-sub">The flagship runs cycle after cycle around the clock — price-driven, no curve-fitted entry logic — with protection layered into every level.</p>
+    </div>
+    <div class="feat-grid reveal">
+      <div class="feat"><div class="ico">⇄</div><h4>Dual-Direction Hedge Grid</h4><p>Opens a buy and a sell cycle simultaneously. Each side is managed as an independent basket with its own recovery levels and profit target.</p></div>
+      <div class="feat"><div class="ico">⟳</div><h4>Basket Recovery Engine</h4><p>When price moves against a side by the configured grid step, a new position is added with an increased lot size until the basket hits its dollar target.</p></div>
+      <div class="feat"><div class="ico">◮</div><h4>Four Risk Modes</h4><p>Conservative, Balanced and Aggressive presets with equity protection at 20%, 35% and 50% — or Custom, where every parameter is yours to set.</p></div>
+      <div class="feat"><div class="ico">▤</div><h4>Live Control Panel</h4><p>Balance, equity, floating P/L, both baskets, closed P/L for day / week / month / year, news and session status, plus Pause and Close All buttons.</p></div>
+      <div class="feat"><div class="ico">✆</div><h4>Telegram Remote Control</h4><p>/status, /pause, /resume, /closebuy, /closesell and /closeall — manage the EA from your phone, anywhere.</p></div>
+      <div class="feat"><div class="ico">✉</div><h4>Push Notifications</h4><p>Telegram and MetaTrader alerts for every basket close, grid level, news pause and protection event.</p></div>
+      <div class="feat"><div class="ico">◷</div><h4>News &amp; Session Filters</h4><p>High-impact news filter using the built-in MT5 economic calendar, plus 24/7, Asian, London, New York, London+NY or custom trading hours.</p></div>
+      <div class="feat"><div class="ico">◎</div><h4>Daily Profit Target</h4><p>Optional target that pauses new entries for the rest of the day once reached — bank the win and stand down.</p></div>
+      <div class="feat"><div class="ico">⚖</div><h4>Auto Lot Sizing</h4><p>Optional automatic lot sizing by account balance, so position size scales sensibly with the account.</p></div>
+      <div class="feat"><div class="ico">⛨</div><h4>Margin &amp; Spread Guard</h4><p>Margin buffer check and spread filter before every new grid level — no reckless adds into thin or stretched markets.</p></div>
+      <div class="feat"><div class="ico">◈</div><h4>Price-Driven Logic</h4><p>No indicators, no curve-fitted entry logic. The system is price-driven and works in ranging and trending conditions alike, with configurable depth limits.</p></div>
+      <div class="feat"><div class="ico">▦</div><h4>Simple 4-Step Setup</h4><p>Attach to an XAUUSD chart, choose a risk mode, optionally add your Telegram bot — the panel shows everything the EA is doing in real time.</p></div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- STATS -->
-<div class="stats-bar">
-  
-  <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">Expert Advisors</div></div>
-  <div class="stat"><div class="stat-num">24/7</div><div class="stat-lbl">Automated Trading</div></div>
-  <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Markets (Gold·BTC·FX)</div></div>
-  <div class="stat"><div class="stat-num">$199</div><div class="stat-lbl">Matrix Gold Pro</div></div>
-  <div class="stat"><div class="stat-num">Free</div><div class="stat-lbl">EA to Start</div></div>
-  <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Automated</div></div>
-</div>
-
-<div class="divider"></div>
-
-<!-- MATRIX PRODUCTS -->
-<section id="products" style="max-width:100%;padding:100px 40px">
-  <div style="max-width:1200px;margin:0 auto">
-    <span class="sec-tag">Matrix Family</span>
-    <h2>FOUR <span>POWERFUL</span> EAS</h2>
-    <p class="sec-sub">Each EA is purpose-built for its market — Gold, Bitcoin and Forex — and can be run together for diversification across instruments.</p>
-    <div class="products">
-
-      <div class="product-card gold-card">
-        <div class="product-num">01</div>
-        <div class="product-tag">Gold Trading</div>
-        <div class="product-name">MATRIX GOLD PRO</div>
-        <div class="product-sym">XAUUSD — M5 Timeframe</div>
-        <p class="product-desc">The original Gold EA. 13 strategies in AUTO mode including ICT Order Blocks, DRS Model, Fair Value Gaps, London and NY Killzones, and DXY Divergence.</p>
-        <div class="prod-features">
-          <div class="feat-row"><span class="feat-icon">⚡</span><span>13 strategies in full AUTO mode — EA picks the best entry every candle</span></div>
-          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model — Displacement Retracement Strike full ICT state machine</span></div>
-          <div class="feat-row"><span class="feat-icon">📊</span><span>Fair Value Gap entries at 50% — institutional imbalance method</span></div>
-          <div class="feat-row"><span class="feat-icon">🎯</span><span>London KZ 08:00-10:00 GMT and NY KZ 13:00-15:00 GMT precision entries</span></div>
-          <div class="feat-row"><span class="feat-icon">💵</span><span>DXY Divergence — auto detects Dollar Index on any broker worldwide</span></div>
-          <div class="feat-row"><span class="feat-icon">🛡️</span><span>Daily Bias filter — blocks counter-trend losses automatically</span></div>
+<!-- ================= LIVE RESULTS ================= -->
+<section class="section" id="results">
+  <div class="wrap">
+    <div class="results-flex">
+      <div class="results-copy reveal">
+        <div class="live-chip"><span class="dot"></span> Live Signal</div>
+        <h2>Verified. Not Backtested Promises.</h2>
+        <p>The track record below streams directly from MQL5 — every trade independently verified and updated automatically. Test any EA yourself with a free demo before you buy.</p>
+        <ul class="check-list">
+          <li>Live verified track record on MQL5 — updates automatically</li>
+          <li>Free demo of every EA in the MQL5 Strategy Tester</li>
+          <li>One-time payment — free lifetime updates and full support</li>
+        </ul>
+        <div style="margin-top:30px;display:flex;gap:14px;flex-wrap:wrap">
+          <a href="https://www.mql5.com/en/users/josh198in" target="_blank" rel="noopener" class="btn btn-ghost">View MQL5 Profile →</a>
         </div>
-        <div class="product-strats">
-          <span class="strat-badge">13 Strategies</span><span class="strat-badge">DRS Model</span>
-          <span class="strat-badge">ICT Concepts</span><span class="strat-badge">Daily Bias</span>
-          <span class="strat-badge">DXY Filter</span>
-        </div>
-        <div class="product-price">$199 <span>one time</span></div>
-        <a href="https://www.mql5.com/en/market/product/178806" class="product-link" target="_blank">Buy on MQL5 →</a>
       </div>
-
-      <div class="product-card btc-card">
-        <div class="product-num">02</div>
-        <div class="product-tag" style="border-color:var(--blue);color:var(--blue)">Crypto Trading</div>
-        <div class="product-name">MATRIX BTC PRO</div>
-        <div class="product-sym">BTCUSD — M5 Timeframe</div>
-        <p class="product-desc">Purpose-built for Bitcoin's unique 24/7 volatility. Trades around the clock including weekends with automatic strategy adjustment and full ICT concepts.</p>
-        <div class="prod-features">
-          <div class="feat-row"><span class="feat-icon">⚡</span><span>13 strategies in AUTO mode — trades 24 hours 7 days a week</span></div>
-          <div class="feat-row"><span class="feat-icon">🌙</span><span>Weekend Mode — RSI thresholds automatically adjust on Saturday and Sunday</span></div>
-          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model for Bitcoin — BTC creates perfect DRS patterns multiple times weekly</span></div>
-          <div class="feat-row"><span class="feat-icon">📊</span><span>Fair Value Gap — Bitcoin always returns to fill its institutional imbalances</span></div>
-          <div class="feat-row"><span class="feat-icon">🎯</span><span>Liquidity Hunt — BTC stop hunts detected before major reversals</span></div>
-          <div class="feat-row"><span class="feat-icon">🔔</span><span>Telegram alerts 24/7 — never miss a Bitcoin trade while you sleep</span></div>
-        </div>
-        <div class="product-strats">
-          <span class="strat-badge">13 Strategies</span><span class="strat-badge">24/7 Trading</span>
-          <span class="strat-badge">DRS Model</span><span class="strat-badge">Weekend Mode</span>
-          <span class="strat-badge">ICT Concepts</span>
-        </div>
-        <div class="product-price" style="color:var(--blue)">$149 <span>one time</span></div>
-        <a href="https://www.mql5.com/en/market/product/178888" class="product-link" style="border-color:var(--blue);color:var(--blue)" target="_blank">Buy on MQL5 →</a>
-      </div>
-
-
-      <div class="product-card fx-card">
-        <div class="product-num">03</div>
-        <div class="product-tag" style="border-color:var(--green);color:var(--green)">Forex Trading</div>
-        <div class="product-name">MATRIX FX PRO</div>
-        <div class="product-sym">EURUSD GBPUSD USDJPY — M5</div>
-        <p class="product-desc">Institutional-grade Forex trading on all major pairs simultaneously. Run on EURUSD, GBPUSD, USDJPY and AUDUSD at the same time with unique magic numbers for each pair.</p>
-        <div class="prod-features">
-          <div class="feat-row"><span class="feat-icon">⚡</span><span>12 strategies in AUTO mode — optimized for Forex market characteristics</span></div>
-          <div class="feat-row"><span class="feat-icon">🌍</span><span>Multi-pair — run on 4+ pairs simultaneously with unique magic numbers</span></div>
-          <div class="feat-row"><span class="feat-icon">🎯</span><span>London KZ 08:00-10:00 GMT and NY KZ 13:00-16:00 GMT best Forex entries</span></div>
-          <div class="feat-row"><span class="feat-icon">🌅</span><span>Asian Range Breakout — trades London breakout above or below Asian range</span></div>
-          <div class="feat-row"><span class="feat-icon">🧠</span><span>DRS Model for Forex — perfect for EURUSD and GBPUSD impulsive moves</span></div>
-          <div class="feat-row"><span class="feat-icon">💵</span><span>DXY Divergence — most powerful for EURUSD and USDJPY correlation trades</span></div>
-        </div>
-        <div class="product-strats">
-          <span class="strat-badge">12 Strategies</span><span class="strat-badge">Multi-Pair</span>
-          <span class="strat-badge">DRS Model</span><span class="strat-badge">Killzones</span>
-          <span class="strat-badge">DXY Filter</span>
-        </div>
-        <div class="product-price" style="color:var(--green)">$149 <span>one time</span></div>
-        <a href="https://www.mql5.com/en/market/product/179027" class="product-link" style="border-color:var(--green);color:var(--green)" target="_blank">Buy on MQL5 →</a>
-      </div>
-
-      <div class="product-card gold-card">
-        <div class="product-num">04</div>
-        <div class="product-tag">Trend Following</div>
-        <div class="product-name">TREND SIGNAL LEVELS EA</div>
-        <div class="product-sym">Any Symbol — Any Timeframe</div>
-        <p class="product-desc">A focused trend-following EA. Detects trend shifts with a Supertrend (ATR) engine, optionally filtered by EMA and RSI, then trades them with structured stop-loss and three take-profit levels.</p>
-        <div class="prod-features">
-          <div class="feat-row"><span class="feat-icon">📈</span><span>Supertrend (ATR) signal engine that adapts to market volatility</span></div>
-          <div class="feat-row"><span class="feat-icon">🔍</span><span>Optional EMA trend filter and RSI filter to avoid chasing extremes</span></div>
-          <div class="feat-row"><span class="feat-icon">🎯</span><span>Automatic stop-loss and up to three take-profits (TP1 / TP2 / TP3)</span></div>
-          <div class="feat-row"><span class="feat-icon">🖱️</span><span>Auto trading, one-click BUY/SELL buttons, or both</span></div>
-          <div class="feat-row"><span class="feat-icon">🛡️</span><span>Break-even, trailing stop, spread filter and daily-loss limit</span></div>
-          <div class="feat-row"><span class="feat-icon">⚙️</span><span>Built-in presets for BTCUSD, XAUUSD and Forex, plus Manual mode</span></div>
-        </div>
-        <div class="product-strats">
-          <span class="strat-badge">Supertrend</span><span class="strat-badge">EMA + RSI</span>
-          <span class="strat-badge">3 Take-Profits</span><span class="strat-badge">Presets</span>
-        </div>
-        <div class="product-price">$30 <span>one time</span></div>
-        <a href="https://www.mql5.com/en/market/product/179329" class="product-link" target="_blank">Buy on MQL5 →</a>
-      </div>
-
-    </div>
-
-    <!-- FREE TOOLS -->
-    <div style="margin-top:60px">
-      <span class="sec-tag">Free Tools &amp; Indicators</span>
-      <h2 style="font-size:clamp(28px,4vw,44px);margin-bottom:12px">FREE <span>ADD-ONS</span></h2>
-      <p class="sec-sub" style="margin-bottom:32px">Free EAs, utilities and an indicator to support your trading — no payment required.</p>
-      <div class="strats-grid">
-        <div class="strat-card">
-          <div class="strat-num">01</div>
-          <div class="strat-name">Trend Signal Levels (Indicator)</div>
-          <div class="strat-desc" style="margin-bottom:14px">Educational trend-following indicator — Supertrend engine with EMA/RSI filters that marks signals and projects entry, stop and three take-profit levels.</div>
-          <a href="https://www.mql5.com/en/market/product/179322" class="product-link" target="_blank">Free on MQL5 →</a>
-        </div>
-        <div class="strat-card">
-          <div class="strat-num">02</div>
-          <div class="strat-name">Trader Toolkit Panel</div>
-          <div class="strat-desc" style="margin-bottom:14px">All-in-one manual trading panel — position calculator, one-click order placement and trade management from a single window. You stay in full control.</div>
-          <a href="https://www.mql5.com/en/market/product/179275" class="product-link" target="_blank">Free on MQL5 →</a>
-        </div>
-        <div class="strat-card">
-          <div class="strat-num">03</div>
-          <div class="strat-name">Matrix Trade Condition Monitor</div>
-          <div class="strat-desc" style="margin-bottom:14px">Free panel that attaches to any chart and checks trade conditions in real time — shows why a trade will or will not open. Works with the Matrix EAs.</div>
-          <a href="https://www.mql5.com/en/market/product/179214" class="product-link" target="_blank">Free on MQL5 →</a>
-        </div>
-        <div class="strat-card">
-          <div class="strat-num">04</div>
-          <div class="strat-name">Gold Martingale Grid EA</div>
-          <div class="strat-desc" style="margin-bottom:14px">Free grid-martingale EA for XAUUSD with ready-made risk presets, an optional hedge mode and an on-chart control panel. <strong>High-risk strategy</strong> — martingale adds to losing baskets, so it can produce occasional large losses. Test on demo and use only capital you can afford to lose.</div>
-          <a href="https://www.mql5.com/en/market/product/179526" class="product-link" target="_blank">Free on MQL5 →</a>
-        </div>
+      <div class="widget-frame reveal">
+        <iframe src="https://www.mql5.com/en/signals/widget/signal/7cjh?t=dark&amp;fw=html" loading="lazy" title="MQL5 Live Signal — Matrix Trading Systems"></iframe>
+        <div class="widget-note">Powered by <a href="https://www.metatrader.com/?utm_source=signals.widget&amp;utm_medium=link&amp;utm_term=signals&amp;utm_content=visit.mql5.signals&amp;utm_campaign=202.signals.widget" target="_blank" rel="noopener">MetaTrader World Markets</a> · MQL5 verified signal</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- ================= FREE ================= -->
+<section class="section" id="free" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Try Before You Buy</div>
+      <h2 class="sec-title">Start With $0.</h2>
+      <p class="sec-sub">Two fully free EAs and four free tools — no payment required, ever. A great way to experience the Matrix system before upgrading.</p>
+    </div>
 
-<!-- FEATURES -->
-<section id="features">
-  <span class="sec-tag">Built-In Features</span>
-  <h2>EVERYTHING <span>INCLUDED</span></h2>
-  <p class="sec-sub">No extra tools needed. Everything built in and ready to run from day one.</p>
-  <div class="features-grid">
-    <div class="feature"><div class="feature-title">AUTO Strategy Engine</div><div class="feature-desc">Matrix Gold Pro runs 13 strategies in AUTO mode, selecting the best signal each candle based on current market conditions.</div></div>
-    <div class="feature"><div class="feature-title">ICT Smart Money</div><div class="feature-desc">18 full ICT concepts including Order Blocks, Fair Value Gaps, Power of 3, Judas Swing, Silver Bullet, DRS Model and more.</div></div>
-    <div class="feature"><div class="feature-title">Confluence Filter</div><div class="feature-desc">9-point scoring system checks Daily, H4, W1, Monthly bias, RSI, candle quality and structure before every entry.</div></div>
-    <div class="feature"><div class="feature-title">Spread &amp; Session Filters</div><div class="feature-desc">Maximum-spread limits (points or price), a trading-hours window and slippage control keep entries within your chosen conditions.</div></div>
-    <div class="feature"><div class="feature-title">3-Level Smart Exit</div><div class="feature-desc">Partial close at 1×ATR moves SL to breakeven, a second at 2×ATR locks profit, and the remainder trails to let winners run.</div></div>
-    <div class="feature"><div class="feature-title">Telegram Alerts</div><div class="feature-desc">Instant notifications for every trade open, close, breakeven, and daily report sent directly to your phone.</div></div>
-    <div class="feature"><div class="feature-title">Smart Risk Management</div><div class="feature-desc">AutoLots based on balance, breakeven automation, partial close system, trailing stop and daily loss limit protection.</div></div>
-    <div class="feature"><div class="feature-title">Daily Bias Filter</div><div class="feature-desc">Uses D1 EMA21, H4 EMA21, W1 and Monthly EMAs to confirm macro direction. Only trades with the higher-timeframe trend.</div></div>
-    <div class="feature"><div class="feature-title">DXY Divergence</div><div class="feature-desc">Monitors the US Dollar Index for divergence with Gold. Auto detects the DXY symbol on any broker worldwide.</div></div>
-    <div class="feature"><div class="feature-title">Risk-Limit Mode</div><div class="feature-desc">Configurable daily-loss, drawdown and profit limits to help you trade within prop-firm rules and your own risk plan.</div></div>
-    <div class="feature"><div class="feature-title">Adjustable Aggressiveness</div><div class="feature-desc">CONSERVATIVE to FULL POWER modes adjust position sizing and signal sensitivity to match your risk tolerance.</div></div>
-    <div class="feature"><div class="feature-title">Live Panel</div><div class="feature-desc">12-row on-chart dashboard — indicators, active strategy, confluence score, open positions and P/L at a glance.</div></div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- WHAT YOU GET / HOW TO EVALUATE -->
-<section id="results">
-  <span class="sec-tag">Before You Buy</span>
-  <h2>TEST IT <span>YOURSELF</span></h2>
-  <p class="sec-sub">Every EA can be evaluated in the MetaTrader 5 Strategy Tester and on a demo account before you risk real money. Try the free Gold Momentum Lock EA first, then upgrade when you're ready.</p>
-  <div class="results-box">
-    <div class="result-item"><div class="result-val">4</div><div class="result-lbl">Expert Advisors</div></div>
-    <div class="result-item"><div class="result-val">MT5</div><div class="result-lbl">Platform</div></div>
-    <div class="result-item"><div class="result-val">XAU·BTC·FX</div><div class="result-lbl">Markets</div></div>
-    <div class="result-item"><div class="result-val">AUTO</div><div class="result-lbl">Hands-Free Mode</div></div>
-    <div class="result-item"><div class="result-val">Free</div><div class="result-lbl">Demo on MQL5</div></div>
-    <div class="result-item"><div class="result-val">1×</div><div class="result-lbl">One-Time Payment</div></div>
-  </div>
-  <!-- LIVE SIGNAL WIDGET -->
-  <div style="margin-top:40px;display:flex;justify-content:center">
-    <div style="background:var(--surf);border:1px solid rgba(201,160,18,0.3);border-radius:4px;padding:28px 32px;position:relative;overflow:hidden;text-align:center;max-width:340px">
-      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))"></div>
-      <div style="display:inline-block;background:rgba(50,120,240,0.1);border:1px solid var(--gp-blue);color:var(--gp-blue);font-size:10px;letter-spacing:3px;padding:5px 16px;border-radius:2px;margin-bottom:18px">&#9679; LIVE SIGNAL</div>
-      <div style="width:220px;text-align:center;line-height:26px;margin:0 auto">
-        <iframe frameborder="0" width="100%" height="140" src="https://www.mql5.com/en/signals/widget/signal/7cjh?t=dark&amp;fw=html"></iframe>
-        <div class="sw-copyright"><a href="https://www.metatrader.com/?utm_source=signals.widget&amp;utm_medium=link&amp;utm_term=signals&amp;utm_content=visit.mql5.signals&amp;utm_campaign=202.signals.widget" rel="noopener nofollow" target="_blank" style="color:var(--muted);font-size:11px;text-decoration:none">MetaTrader World Markets</a></div>
+    <div class="free-hero">
+      <div class="free-card reveal">
+        <div class="free-tag">100% Free</div>
+        <h3>Matrix Scalper Pro</h3>
+        <div class="pair">XAUUSD — MetaTrader 5 — M1</div>
+        <ul>
+          <li>Trend-filtered momentum entries on closed M1 bars — EMA alignment, RSI crossover, optional M5 trend filter</li>
+          <li>ATR volatility gate, minimum candle body and spread filters</li>
+          <li>Optional grid recovery module with configurable step and scalp-out option</li>
+          <li>SL/TP off, fixed in points, or derived from ATR — plus trailing stop and break-even</li>
+          <li>Basket loss limit, daily drawdown, equity stop, daily profit target and margin guard</li>
+          <li>On-chart panel shows signal state, grid level, floating and banked profit</li>
+        </ul>
+        <div class="free-ctas">
+          <a href="https://www.mql5.com/en/market/product/185712" target="_blank" rel="noopener" class="btn btn-gold">Download Free on MQL5</a>
+          <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" class="btn btn-dark">Upgrade to Gold Hedge Pro →</a>
+        </div>
       </div>
-      <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-top:10px">Live verified track record on MQL5 — updates automatically.</p>
-    </div>
-  </div>
 
-  <div class="testimonial" style="margin-top:40px">
-    <p>The Matrix family represents years of development — combining multi-strategy AUTO engines with multi-timeframe confluence and a 3-level exit system across Gold, Bitcoin and Forex.</p>
-    <cite>— Joshy Antony, Developer, Matrix Trading Systems</cite>
-  </div>
-  <p style="text-align:center;color:var(--muted);font-size:12px;line-height:1.8;max-width:760px;margin:32px auto 0">
-    Risk disclaimer: Trading involves risk and you can lose money. These products are trading tools and do not constitute financial advice. Past performance does not guarantee future results. Always test thoroughly in the Strategy Tester and on a demo account before using any EA on a live account.
-  </p>
-</section>
+      <div class="free-card reveal">
+        <div class="free-tag">100% Free</div>
+        <h3>Gold Martingale Grid</h3>
+        <div class="pair">XAUUSD — MetaTrader 5</div>
+        <ul>
+          <li>Automated grid-martingale system for Gold</li>
+          <li>Three risk presets — Conservative, Balanced, Aggressive</li>
+          <li>Optional two-direction hedge mode</li>
+          <li>Equity stop and daily loss limit built in</li>
+          <li>On-chart panel with PAUSE and CLOSE ALL</li>
+        </ul>
+        <div class="risk-note"><b>High-risk strategy:</b> a martingale grid adds to losing baskets, so it produces many small wins and occasional large losses. A strong, sustained trend can cause deep drawdown. Test on a demo account and use only capital you can afford to lose.</div>
+        <div class="free-ctas">
+          <a href="https://www.mql5.com/en/market/product/179526" target="_blank" rel="noopener" class="btn btn-ghost">Download Free on MQL5</a>
+        </div>
+      </div>
+    </div>
 
-<!-- FREE EA -->
-<div class="divider"></div>
-<section id="free" style="max-width:900px;margin:0 auto;padding:80px 40px;text-align:center">
-  <span class="sec-tag">100% Free</span>
-  <h2 style="margin:16px 0 12px">TRY BEFORE YOU BUY</h2>
-  <p style="color:var(--muted);font-size:15px;max-width:600px;margin:0 auto 50px;line-height:1.8">
-    Start with one of our free EAs — no payment required.
-    See the Matrix approach in action on your own account before upgrading.
-  </p>
-  <div style="background:var(--surf);border:1px solid rgba(201,160,18,0.3);border-radius:4px;padding:40px;max-width:700px;margin:0 auto;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))"></div>
-    <div style="display:inline-block;background:rgba(201,160,18,0.1);border:1px solid var(--gold);color:var(--gold);font-size:11px;letter-spacing:3px;padding:6px 18px;border-radius:2px;margin-bottom:20px">FREE FOREVER</div>
-    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--bright);margin-bottom:8px">GOLD MOMENTUM LOCK EA</h3>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:24px">XAUUSD — MetaTrader 5 — M5 Timeframe</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;text-align:left">
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Automated Gold trading on XAUUSD</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Momentum and trend detection</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Smart lock profit system</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Works on any Gold broker</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>No payment required ever</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>A great way to try the Matrix system</span></div>
-    </div>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="https://www.mql5.com/en/market/product/178940" target="_blank"
-         style="display:inline-block;padding:14px 32px;background:var(--gold);color:#000;font-weight:700;font-size:13px;letter-spacing:1px;border-radius:2px;text-decoration:none">
-        DOWNLOAD FREE ON MQL5
-      </a>
-      <a href="https://www.mql5.com/en/market/product/178806" target="_blank"
-         style="display:inline-block;padding:14px 32px;border:1px solid var(--gp-blue);color:var(--gp-blue);font-size:13px;letter-spacing:1px;border-radius:2px;text-decoration:none">
-        Upgrade to Matrix Gold Pro →
-      </a>
-    </div>
-  </div>
-
-  <div style="background:var(--surf);border:1px solid rgba(201,160,18,0.3);border-radius:4px;padding:40px;max-width:700px;margin:24px auto 0;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gp-blue),var(--gp-gold),var(--gp-blue))"></div>
-    <div style="display:inline-block;background:rgba(201,160,18,0.1);border:1px solid var(--gold);color:var(--gold);font-size:11px;letter-spacing:3px;padding:6px 18px;border-radius:2px;margin-bottom:20px">FREE FOREVER</div>
-    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--bright);margin-bottom:8px">GOLD MARTINGALE GRID EA</h3>
-    <p style="color:var(--muted);font-size:13px;margin-bottom:24px">XAUUSD — MetaTrader 5</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;text-align:left">
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Automated grid-martingale system for Gold</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Three risk presets — Conservative, Balanced, Aggressive</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Optional two-direction hedge mode</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>Equity stop and daily loss limit built in</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>On-chart panel with PAUSE and CLOSE ALL</span></div>
-      <div style="display:flex;gap:10px;font-size:13px;color:var(--muted)"><span style="color:var(--gold)">✓</span><span>No payment required ever</span></div>
-    </div>
-    <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:24px;text-align:left;border-left:2px solid rgba(255,120,80,0.5);padding-left:14px">
-      High-risk strategy: a martingale grid adds to losing baskets, so it produces many small wins and occasional large losses. A strong, sustained trend can cause deep drawdown. Test on a demo account and use only capital you can afford to lose.
-    </p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="https://www.mql5.com/en/market/product/179526" target="_blank"
-         style="display:inline-block;padding:14px 32px;background:var(--gold);color:#000;font-weight:700;font-size:13px;letter-spacing:1px;border-radius:2px;text-decoration:none">
-        DOWNLOAD FREE ON MQL5
-      </a>
+    <div class="addons">
+      <div class="addon reveal">
+        <div class="num">01</div>
+        <h4>Trend Signal Levels (Indicator)</h4>
+        <p>Educational trend-following indicator — Supertrend engine with EMA/RSI filters that marks signals and projects entry, stop and three take-profit levels.</p>
+        <a href="https://www.mql5.com/en/market/product/179322" target="_blank" rel="noopener">Free on MQL5 →</a>
+      </div>
+      <div class="addon reveal">
+        <div class="num">02</div>
+        <h4>Trader Toolbox Multi Panel</h4>
+        <p>Five everyday utilities in one on-chart panel — lot calculator, equity guard, spread &amp; swap monitor, history exporter and an ATR-normalized momentum readout.</p>
+        <a href="https://www.mql5.com/en/market/product/179871" target="_blank" rel="noopener">Free on MQL5 →</a>
+      </div>
+      <div class="addon reveal">
+        <div class="num">03</div>
+        <h4>Trader Toolkit Panel</h4>
+        <p>All-in-one manual trading panel — position calculator, one-click order placement and trade management from a single window. You stay in full control.</p>
+        <a href="https://www.mql5.com/en/market/product/179275" target="_blank" rel="noopener">Free on MQL5 →</a>
+      </div>
+      <div class="addon reveal">
+        <div class="num">04</div>
+        <h4>Matrix Trade Condition Monitor</h4>
+        <p>Free panel that attaches to any chart and checks trade conditions in real time — shows why a trade will or will not open. Works with the Matrix EAs.</p>
+        <a href="https://www.mql5.com/en/market/product/179214" target="_blank" rel="noopener">Free on MQL5 →</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<div class="cta-section">
-  <span class="sec-tag" style="display:block;margin-bottom:16px;color:var(--gp-blue)">Start Today</span>
-  <h2>READY TO <span>AUTOMATE</span>?</h2>
-  <p>Run the Matrix EAs on any MetaTrader 5 broker — Switch Markets is our recommended choice. Fully automated. No experience needed.</p>
-  <div class="hero-btns">
-    <a href="https://www.mql5.com/en/market/product/178806" class="btn-primary" target="_blank">Matrix Gold Pro — $199</a>
-    <a href="https://www.mql5.com/en/market/product/178888" class="btn-gold" target="_blank">Matrix BTC — $149</a>
-    <a href="https://www.mql5.com/en/market/product/179027" class="btn-outline" style="border-color:var(--green);color:var(--green)" target="_blank">Matrix FX — $149</a>
-    <a href="https://www.mql5.com/en/market/product/179329" class="btn-outline" target="_blank">Trend Signal EA — $30</a>
+<!-- ================= QUOTE ================= -->
+<section class="section quote-band">
+  <div class="wrap reveal">
+    <blockquote>
+      <span class="q">“</span>Every Matrix product is built on the same principle — automated execution with structured risk controls, a live panel that shows exactly what the system is doing, and a free demo so you can verify it yourself before spending anything.<span class="q">”</span>
+      <cite>— <b>Joshy Antony</b> · Developer, Matrix Trading Systems</cite>
+    </blockquote>
   </div>
-  <p style="margin-top:24px;font-size:12px;color:var(--muted)">One-time payment · Free lifetime updates · Full support included</p>
-</div>
-
-<!-- VPS REFERRAL -->
-<div class="divider"></div>
-<section id="vps" style="max-width:900px;margin:0 auto;padding:80px 40px;text-align:center">
-  <span class="sec-tag" style="color:var(--gp-blue)">Recommended Hosting</span>
-  <h2 style="margin:16px 0 12px">RUN YOUR EA <span>24/7</span></h2>
-  <p style="color:var(--muted);font-size:15px;max-width:600px;margin:0 auto 36px;line-height:1.8">
-    Expert Advisors perform best on a low-latency VPS that stays online around the clock —
-    so your EA keeps trading even when your computer is off or your internet drops.
-    ForexVPS is purpose-built for MetaTrader.
-  </p>
-  <a href="https://www.forexvps.net/?aff=102943" class="btn-primary" target="_blank" rel="noopener">Get a Forex VPS →</a>
-  <p style="margin-top:18px;font-size:11px;color:var(--muted);opacity:0.7">Referral link — we may earn a commission at no extra cost to you.</p>
 </section>
 
-<!-- BROKER REFERRAL -->
-<div class="divider"></div>
-<section id="broker" style="max-width:900px;margin:0 auto;padding:80px 40px;text-align:center">
-  <span class="sec-tag">Recommended Broker</span>
-  <h2 style="margin:16px 0 12px">TRADE WITH <span>SWITCH MARKETS</span></h2>
-  <p style="color:var(--muted);font-size:15px;max-width:600px;margin:0 auto 36px;line-height:1.8">
-    Our EAs run on any MetaTrader 5 broker. If you're still choosing one, Switch Markets
-    offers MT5 with tight spreads and fast execution — a solid fit for automated Gold,
-    Bitcoin and Forex trading.
-  </p>
-  <a href="https://cabinet.switchmarkets.com/links/go/15731" class="btn-gold" target="_blank" rel="noopener">Open a Switch Markets Account →</a>
-  <p style="margin-top:18px;font-size:11px;color:var(--muted);opacity:0.7">
-    Referral link — we may earn a commission at no extra cost to you.
-    Trading forex and CFDs carries a high risk of loss and may not be suitable for everyone.
-  </p>
+<!-- ================= FINAL CTA ================= -->
+<section class="section final" id="buy">
+  <div class="wrap reveal">
+    <div class="eyebrow" style="justify-content:center">Ready to Automate?</div>
+    <h2>Your Desk Never Sleeps.</h2>
+    <p>Run the Matrix EAs on any MetaTrader 5 broker — fully automated, no experience needed.</p>
+    <div class="buy-row">
+      <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" class="btn btn-gold">Gold Hedge Martingale Pro — $499</a>
+      <a href="https://www.mql5.com/en/market/product/179383" target="_blank" rel="noopener" class="btn btn-ghost">Trend Signal Levels Pro — $39</a>
+      <a href="https://www.mql5.com/en/market/product/179329" target="_blank" rel="noopener" class="btn btn-ghost">Trend Signal EA — $30</a>
+      <a href="https://www.mql5.com/en/market/product/185712" target="_blank" rel="noopener" class="btn btn-ghost">Matrix Scalper Pro — Free</a>
+    </div>
+    <div class="fine">Buy once or rent monthly · Free lifetime updates on purchases · Full support included</div>
+    <div style="margin-top:20px"><a href="https://www.mql5.com/en/users/josh198in/seller" target="_blank" rel="noopener" style="color:var(--gold-dim);font-size:13.5px;border-bottom:1px solid var(--line)">Shop all products on MQL5 →</a></div>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ================= INFRA ================= -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Recommended Setup</div>
+      <h2 class="sec-title">Run It Right.</h2>
+    </div>
+    <div class="infra">
+      <div class="infra-card reveal">
+        <div class="ico">⚡</div>
+        <h3>Run Your EA 24/7 on a VPS</h3>
+        <p>Expert Advisors perform best on a low-latency VPS that stays online around the clock — so your EA keeps trading even when your computer is off or your internet drops. ForexVPS is purpose-built for MetaTrader.</p>
+        <a href="https://www.forexvps.net/?aff=102943" target="_blank" rel="noopener" class="btn btn-ghost">Get a Forex VPS →</a>
+        <span class="fine">Referral link — we may earn a commission at no extra cost to you.</span>
+      </div>
+      <div class="infra-card reveal">
+        <div class="ico">◫</div>
+        <h3>Trade With Switch Markets</h3>
+        <p>Our EAs run on any MetaTrader 5 broker. If you're still choosing one, Switch Markets offers MT5 with tight spreads and fast execution — a solid fit for automated Gold, Bitcoin and Forex trading.</p>
+        <a href="https://cabinet.switchmarkets.com/links/go/15731" target="_blank" rel="noopener" class="btn btn-ghost">Open a Switch Markets Account →</a>
+        <span class="fine">Referral link — we may earn a commission at no extra cost to you. Trading forex and CFDs carries a high risk of loss and may not be suitable for everyone.</span>
+      </div>
+    </div>
+
+    <div class="disclaimer reveal">
+      <b>Risk disclaimer:</b> Trading involves risk and you can lose money. These products are trading tools and do not constitute financial advice. Past performance does not guarantee future results. Always test thoroughly in the Strategy Tester and on a demo account before using any EA on a live account.
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
 <footer>
-  <div class="footer-logo">MATRIX TRADING SYSTEMS</div>
-  <ul class="footer-links">
-    <li><a href="https://www.mql5.com/en/market/product/178806" target="_blank">Matrix Gold Pro</a></li>
-    <li><a href="https://www.mql5.com/en/market/product/178888" target="_blank">Matrix BTC Pro</a></li>
-    <li><a href="https://www.mql5.com/en/market/product/179027" target="_blank">Matrix FX Pro</a></li>
-    <li><a href="https://www.mql5.com/en/market/product/179329" target="_blank">Trend Signal Levels EA</a></li>
-    <li><a href="#free">Free EA</a></li>
-    <li><a href="https://www.forexvps.net/?aff=102943" target="_blank" rel="noopener">Forex VPS</a></li>
-    <li><a href="https://cabinet.switchmarkets.com/links/go/15731" target="_blank" rel="noopener">Switch Markets</a></li>
-    <li><a href="https://youtu.be/HRpc8WpRbRM" target="_blank">YouTube</a></li>
-    <li><a href="https://www.mql5.com/en/users/josh198in" target="_blank">MQL5 Profile</a></li>
-  </ul>
-  <p class="footer-copy">© 2026 Matrix Trading Systems — Joshy Antony · All rights reserved<br>
-  <span style="font-size:11px;opacity:0.5">Trading involves risk. Past performance does not guarantee future results.</span></p>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="logo"><span class="mark">▦</span><span>MATRIX<b>·</b>TRADING</span></a>
+        <p>Professional Expert Advisors and trading tools for MetaTrader 5 — automated Gold trading and trend-following systems with structured risk controls.</p>
+      </div>
+      <div>
+        <h5>Products</h5>
+        <ul>
+          <li><a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener">Gold Hedge Martingale Pro</a></li>
+          <li><a href="https://www.mql5.com/en/market/product/179383" target="_blank" rel="noopener">Trend Signal Levels Pro</a></li>
+          <li><a href="https://www.mql5.com/en/market/product/179329" target="_blank" rel="noopener">Trend Signal Levels EA</a></li>
+          <li><a href="https://www.mql5.com/en/users/josh198in/seller" target="_blank" rel="noopener">All Products</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Free</h5>
+        <ul>
+          <li><a href="#free">Free EAs &amp; Tools</a></li>
+          <li><a href="https://www.mql5.com/en/market/product/185712" target="_blank" rel="noopener">Matrix Scalper Pro</a></li>
+          <li><a href="https://www.mql5.com/en/market/product/179526" target="_blank" rel="noopener">Gold Martingale Grid</a></li>
+          <li><a href="https://www.mql5.com/en/market/product/179322" target="_blank" rel="noopener">Trend Signal Levels</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="https://www.forexvps.net/?aff=102943" target="_blank" rel="noopener">Forex VPS</a></li>
+          <li><a href="https://cabinet.switchmarkets.com/links/go/15731" target="_blank" rel="noopener">Switch Markets</a></li>
+          <li><a href="https://youtu.be/HRpc8WpRbRM" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://www.mql5.com/en/users/josh198in" target="_blank" rel="noopener">MQL5 Profile</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Matrix Trading Systems — Joshy Antony · All rights reserved</span>
+      <span>Trading involves risk. Past performance does not guarantee future results.</span>
+    </div>
+  </div>
 </footer>
 
+<script>
+/* nav scroll state */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
+
+/* mobile menu */
+const mmenu=document.getElementById('mmenu');
+document.getElementById('burger').addEventListener('click',()=>mmenu.classList.toggle('open'));
+mmenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mmenu.classList.remove('open')));
+
+/* ticker: duplicate content for seamless loop */
+const ticker=document.getElementById('ticker');
+ticker.innerHTML+=ticker.innerHTML;
+
+/* scroll reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* hero candlestick canvas */
+(()=> {
+  const cv=document.getElementById('chart-bg');if(!cv)return;
+  const ctx=cv.getContext('2d');
+  let W,H,candles=[],t=0;
+  function resize(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;init()}
+  function init(){
+    candles=[];let p=H*0.62;
+    const n=Math.ceil(W/(18*devicePixelRatio))+2;
+    for(let i=0;i<n;i++){
+      const o=p,c=o+(Math.sin(i*0.7)*0.5+ (Math.random()-0.46))*H*0.02;
+      candles.push({o,c,h:Math.min(o,c)-Math.random()*H*0.012,l:Math.max(o,c)+Math.random()*H*0.012});
+      p=c;
+    }
+  }
+  function step(){
+    // shift left; append new candle
+    const last=candles[candles.length-1];
+    const o=last.c,c=o+(Math.random()-0.47)*H*0.024;
+    candles.push({o,c,h:Math.min(o,c)-Math.random()*H*0.012,l:Math.max(o,c)+Math.random()*H*0.012});
+    candles.shift();
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const cw=18*devicePixelRatio,bw=cw*0.5;
+    // grid
+    ctx.strokeStyle='rgba(212,175,55,0.05)';ctx.lineWidth=1;
+    for(let y=0;y<H;y+=H/8){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+    candles.forEach((k,i)=>{
+      const x=i*cw+ (t%1)*-cw;
+      const up=k.c<k.o;
+      ctx.strokeStyle=up?'rgba(212,175,55,0.5)':'rgba(150,120,50,0.28)';
+      ctx.fillStyle=up?'rgba(212,175,55,0.30)':'rgba(120,95,40,0.16)';
+      ctx.lineWidth=devicePixelRatio;
+      ctx.beginPath();ctx.moveTo(x+bw/2,k.h);ctx.lineTo(x+bw/2,k.l);ctx.stroke();
+      const top=Math.min(k.o,k.c),hgt=Math.max(Math.abs(k.c-k.o),devicePixelRatio);
+      ctx.fillRect(x,top,bw,hgt);ctx.strokeRect(x,top,bw,hgt);
+    });
+  }
+  let frame=0;
+  function loop(){
+    frame++;t+=0.008;
+    if(t>=1){t=0;step()}
+    if(frame%2===0)draw();
+    requestAnimationFrame(loop);
+  }
+  addEventListener('resize',resize,{passive:true});
+  resize();loop();
+})();
+</script>
 </body>
 </html>
