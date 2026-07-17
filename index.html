@@ -414,8 +414,8 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
       <a href="#free" class="btn btn-dark">Start Free</a>
     </div>
     <div class="hero-stats reveal in">
-      <div class="hero-stat"><b>9</b><span>Trading Products</span></div>
-      <div class="hero-stat"><b>4</b><span>Expert Advisors</span></div>
+      <div class="hero-stat"><b>10</b><span>Trading Products</span></div>
+      <div class="hero-stat"><b>5</b><span>Expert Advisors</span></div>
       <div class="hero-stat"><b>24/7</b><span>Automated Trading</span></div>
       <div class="hero-stat"><b>6</b><span>Free Tools</span></div>
       <div class="hero-stat"><b>DEMO</b><span>Free on MQL5</span></div>
@@ -427,6 +427,7 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
 <div class="ticker-band">
   <div class="ticker" id="ticker">
     <span><b>XAUUSD</b> · Dual-Direction Hedge Grid</span>
+    <span><b>DUAL ENGINE</b> · V190 Grid + HedgePro Hedge</span>
     <span><b>M1 SCALPING</b> · Trend-Filtered Momentum</span>
     <span><b>SUPERTREND</b> · Entry · SL · TP1·TP2·TP3</span>
     <span><b>4 RISK MODES</b> · Conservative to Custom</span>
@@ -471,6 +472,32 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
         </div>
         <div class="risk-note"><b>Risk disclosure:</b> this EA uses a martingale position-sizing model. A sustained one-directional move can exceed the grid depth and lead to significant drawdown or loss, especially when stop loss and equity protection are disabled in Custom mode. Test thoroughly on a demo account first, use only risk capital, and consider keeping the equity protection enabled.</div>
         <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" class="btn btn-gold">Buy or Rent on MQL5 →</a>
+      </div>
+
+      <div class="prod flagship wide reveal">
+        <div class="flag-tag">◆ New — Dual Engine</div>
+        <div class="prod-top">
+          <div><h3>Gold Martingale Hedge X</h3><div class="pair">XAUUSD — MetaTrader 5 — Hedging Accounts</div></div>
+          <div class="price"><b>$499</b><span>or rent from $49/mo</span></div>
+        </div>
+        <p class="desc">Two independent grid-martingale engines for XAUUSD in a single Expert Advisor — the V190 signal-based grid engine and the HedgePro dual-direction hedge engine. Each engine uses its own magic number and manages only its own positions, running solo, in parallel, or in an intelligent custom sequence.</p>
+        <ul>
+          <li>Four strategy modes — V190 only, HedgePro only, both in parallel, or the default Custom sequence where V190 leads and HedgePro fires for recovery when the grid is full</li>
+          <li>Price Difference Guard — closes any position once gold moves a selected 50 / 100 / 150 / 200 USD against its opening price</li>
+          <li>Fake Reversal Filter — tells wick fakeouts from confirmed breakouts, pauses new entries on confirmed breaks and auto-resumes when price closes back inside the range</li>
+          <li>One risk selector for both engines — Custom, Conservative, Balanced or Aggressive</li>
+          <li>Margin safety with emergency close near stop-out, optional equity stop, max drawdown stop, per-basket stop loss and daily profit/loss halts, plus the built-in MT5 news filter</li>
+          <li>Combined on-chart panel for both engines, MQL5 push and Telegram alerts with remote commands, selectable hedge depth (1–8 levels per side), lot cap and auto lot by balance</li>
+        </ul>
+        <div class="badges"><span class="badge">Dual Engine</span><span class="badge">V190 Grid</span><span class="badge">HedgePro Hedge</span><span class="badge">4 Risk Modes</span><span class="badge">Reversal Filter</span><span class="badge">Free Demo</span></div>
+        <div class="rent-row">
+          <div class="rent"><b>$49</b><span>1 month</span></div>
+          <div class="rent"><b>$99</b><span>3 months</span><em>save 33%</em></div>
+          <div class="rent"><b>$179</b><span>6 months</span><em>save 39%</em></div>
+          <div class="rent"><b>$299</b><span>1 year</span><em>save 49%</em></div>
+        </div>
+        <div class="risk-note"><b>Risk disclosure:</b> this EA uses martingale and grid averaging. These methods can produce long series of small profits but carry a real risk of significant loss, including the entire account balance, during sustained one-way price moves. The protections reduce but do not eliminate this risk. Test thoroughly in the Strategy Tester and on a demo account first, and only use money you can afford to lose.</div>
+        <a href="https://www.mql5.com/en/market/product/186182" target="_blank" rel="noopener" class="btn btn-gold">Buy or Rent on MQL5 →</a>
       </div>
 
       <div class="prod reveal">
@@ -663,6 +690,7 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
     <p>Run the Matrix EAs on any MetaTrader 5 broker — fully automated, no experience needed.</p>
     <div class="buy-row">
       <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" class="btn btn-gold">Gold Hedge Martingale Pro — $499</a>
+      <a href="https://www.mql5.com/en/market/product/186182" target="_blank" rel="noopener" class="btn btn-gold">Gold Martingale Hedge X — $499</a>
       <a href="https://www.mql5.com/en/market/product/179383" target="_blank" rel="noopener" class="btn btn-ghost">Trend Signal Levels Pro — $39</a>
       <a href="https://www.mql5.com/en/market/product/179329" target="_blank" rel="noopener" class="btn btn-ghost">Trend Signal EA — $30</a>
       <a href="https://www.mql5.com/en/market/product/185712" target="_blank" rel="noopener" class="btn btn-ghost">Matrix Scalper Pro — Free</a>
@@ -714,6 +742,7 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
         <h5>Products</h5>
         <ul>
           <li><a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener">Gold Hedge Martingale Pro</a></li>
+          <li><a href="https://www.mql5.com/en/market/product/186182" target="_blank" rel="noopener">Gold Martingale Hedge X</a></li>
           <li><a href="https://www.mql5.com/en/market/product/179383" target="_blank" rel="noopener">Trend Signal Levels Pro</a></li>
           <li><a href="https://www.mql5.com/en/market/product/179329" target="_blank" rel="noopener">Trend Signal Levels EA</a></li>
           <li><a href="https://www.mql5.com/en/users/josh198in/seller" target="_blank" rel="noopener">All Products</a></li>
