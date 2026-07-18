@@ -430,7 +430,7 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
     <span><b>DUAL ENGINE</b> · V190 Grid + HedgePro Hedge</span>
     <span><b>M1 SCALPING</b> · Trend-Filtered Momentum</span>
     <span><b>SUPERTREND</b> · Entry · SL · TP1·TP2·TP3</span>
-    <span><b>4 RISK MODES</b> · Conservative to Custom</span>
+    <span><b>7 RISK MODES</b> · Conservative to Custom</span>
     <span><b>TELEGRAM</b> · Remote Control From Your Phone</span>
     <span><b>NEWS FILTER</b> · Built-In MT5 Calendar</span>
     <span><b>BUY OR RENT</b> · Free Demo on MQL5</span>
@@ -454,23 +454,23 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
           <div><h3>Gold Hedge Martingale Pro</h3><div class="pair">XAUUSD — MetaTrader 5 — Hedging Accounts</div></div>
           <div class="price"><b>$499</b><span>or rent from $35/mo</span></div>
         </div>
-        <p class="desc">A fully automated Expert Advisor for XAUUSD that combines a dual-direction hedge grid with martingale-based basket recovery. It opens a buy and a sell cycle simultaneously, adds spaced recovery levels when price moves against a side, and closes each basket at a fixed dollar profit target before immediately starting the next cycle.</p>
+        <p class="desc">A fully automated Expert Advisor for XAUUSD that manages distinct buy and sell cycles as separate baskets with martingale-based recovery. Buy cycles start anytime below a set price ceiling; sell cycles require bearish confirmation from a selectable multi-timeframe filter, so the EA stays clear of uptrend conditions.</p>
         <ul>
-          <li>Hedge grid engine with per-side dollar basket take profit — commission-aware</li>
-          <li>Four risk modes — Conservative, Balanced, Aggressive and fully Custom, with equity protection at 20% / 35% / 50%</li>
-          <li>Live on-chart control panel — balance, equity, floating P/L, both baskets, closed P/L by day / week / month / year, Pause and Close All buttons</li>
-          <li>Telegram remote control — /status, /pause, /resume, /closebuy, /closesell, /closeall from your phone</li>
-          <li>High-impact news filter using the built-in MT5 economic calendar — no external URLs needed</li>
-          <li>Session filter, optional daily profit target, auto lot sizing, margin buffer check and spread filter before every new level</li>
+          <li>Seven risk modes — Conservative, Balanced and Aggressive with equity protection at 20% / 35% / 50%, three Aggressive presets with distinct lot caps and grid depths, plus fully Custom</li>
+          <li>Sell confirmation filter with five strictness levels — M15, H4 and D1 trend, RSI momentum and price structure — plus a buy price ceiling</li>
+          <li>Take Profit Maximizer — the basket keeps running while profit rises and closes when it retraces a set percentage from peak; dollar targets are commission-aware</li>
+          <li>Smart lot control — three lot modes, absolute per-position cap, and accounts below $5,000 automatically capped at 0.01 lot</li>
+          <li>Live on-chart control panel plus Telegram remote control — /status, /pause, /resume, /closebuy, /closesell, /closeall from your phone</li>
+          <li>High-impact news filter using the built-in MT5 calendar, session filter, optional daily profit target, margin safety layer and per-position guards</li>
         </ul>
-        <div class="badges"><span class="badge">Hedge Grid</span><span class="badge">4 Risk Modes</span><span class="badge">Telegram Control</span><span class="badge">News Filter</span><span class="badge">Live Panel</span><span class="badge">Free Demo</span></div>
+        <div class="badges"><span class="badge">Hedge Grid</span><span class="badge">7 Risk Modes</span><span class="badge">TP Maximizer</span><span class="badge">Sell Filter</span><span class="badge">Telegram Control</span><span class="badge">Free Demo</span></div>
         <div class="rent-row">
           <div class="rent"><b>$35</b><span>1 month</span></div>
           <div class="rent"><b>$75</b><span>3 months</span><em>save 29%</em></div>
           <div class="rent"><b>$120</b><span>6 months</span><em>save 43%</em></div>
           <div class="rent"><b>$200</b><span>1 year</span><em>save 53%</em></div>
         </div>
-        <div class="risk-note"><b>Risk disclosure:</b> this EA uses a martingale position-sizing model. A sustained one-directional move can exceed the grid depth and lead to significant drawdown or loss, especially when stop loss and equity protection are disabled in Custom mode. Test thoroughly on a demo account first, use only risk capital, and consider keeping the equity protection enabled.</div>
+        <div class="risk-note"><b>Risk disclosure:</b> this EA uses a martingale position-sizing model. A sustained one-directional move can produce deep drawdowns or loss of the account, especially with the deeper grid presets or when the equity protection is disabled in Custom mode. Strategy Tester results do not determine live results. Test thoroughly on a demo account first, use only risk capital, and consider keeping the equity protection enabled.</div>
         <a href="https://www.mql5.com/en/market/product/185970" target="_blank" rel="noopener" class="btn btn-gold">Buy or Rent on MQL5 →</a>
       </div>
 
@@ -493,8 +493,8 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
         <div class="rent-row">
           <div class="rent"><b>$49</b><span>1 month</span></div>
           <div class="rent"><b>$99</b><span>3 months</span><em>save 33%</em></div>
-          <div class="rent"><b>$179</b><span>6 months</span><em>save 39%</em></div>
-          <div class="rent"><b>$299</b><span>1 year</span><em>save 49%</em></div>
+          <div class="rent"><b>$179</b><span>6 months</span><em>save 40%</em></div>
+          <div class="rent"><b>$299</b><span>1 year</span><em>save 50%</em></div>
         </div>
         <div class="risk-note"><b>Risk disclosure:</b> this EA uses martingale and grid averaging. These methods can produce long series of small profits but carry a real risk of significant loss, including the entire account balance, during sustained one-way price moves. The protections reduce but do not eliminate this risk. Test thoroughly in the Strategy Tester and on a demo account first, and only use money you can afford to lose.</div>
         <a href="https://www.mql5.com/en/market/product/186182" target="_blank" rel="noopener" class="btn btn-gold">Buy or Rent on MQL5 →</a>
@@ -546,21 +546,21 @@ footer{border-top:1px solid var(--line2);background:var(--bg2);padding:70px 0 40
     <div class="reveal">
       <div class="eyebrow">Inside Gold Hedge Martingale Pro</div>
       <h2 class="sec-title">Built Like a Trading Desk.</h2>
-      <p class="sec-sub">The flagship runs cycle after cycle around the clock — price-driven, no curve-fitted entry logic — with protection layered into every level.</p>
+      <p class="sec-sub">The flagship (v2.24) runs cycle after cycle around the clock, with trend-aware entry filters and protection layered into every level.</p>
     </div>
     <div class="feat-grid reveal">
-      <div class="feat"><div class="ico">⇄</div><h4>Dual-Direction Hedge Grid</h4><p>Opens a buy and a sell cycle simultaneously. Each side is managed as an independent basket with its own recovery levels and profit target.</p></div>
-      <div class="feat"><div class="ico">⟳</div><h4>Basket Recovery Engine</h4><p>When price moves against a side by the configured grid step, a new position is added with an increased lot size until the basket hits its dollar target.</p></div>
-      <div class="feat"><div class="ico">◮</div><h4>Four Risk Modes</h4><p>Conservative, Balanced and Aggressive presets with equity protection at 20%, 35% and 50% — or Custom, where every parameter is yours to set.</p></div>
+      <div class="feat"><div class="ico">⇄</div><h4>Dual-Direction Baskets</h4><p>Distinct buy and sell cycles managed as separate baskets, each with adjustable grid depth. Buy cycles start below a set price ceiling; sell cycles need bearish confirmation.</p></div>
+      <div class="feat"><div class="ico">⟳</div><h4>Basket Recovery Engine</h4><p>When price moves against a basket by the configured grid step, a new position is added with escalated lot sizing until the basket hits its dollar target — then a fresh cycle begins.</p></div>
+      <div class="feat"><div class="ico">◮</div><h4>Seven Risk Modes</h4><p>Conservative, Balanced and Aggressive with equity protection at 20% / 35% / 50%, three Aggressive presets with distinct lot caps and grid depths, plus fully Custom.</p></div>
+      <div class="feat"><div class="ico">◭</div><h4>Sell Confirmation Filter</h4><p>Five strictness levels — Off, Normal, Strict, Extreme, Ultra — using M15, H4 and D1 trend, RSI momentum and price structure to keep sells out of uptrends.</p></div>
+      <div class="feat"><div class="ico">◎</div><h4>Take Profit Maximizer</h4><p>The basket keeps running while profit rises and closes when it retraces a set percentage from its peak. Dollar targets are commission-aware and can scale with base lot.</p></div>
       <div class="feat"><div class="ico">▤</div><h4>Live Control Panel</h4><p>Balance, equity, floating P/L, both baskets, closed P/L for day / week / month / year, news and session status, plus Pause and Close All buttons.</p></div>
       <div class="feat"><div class="ico">✆</div><h4>Telegram Remote Control</h4><p>/status, /pause, /resume, /closebuy, /closesell and /closeall — manage the EA from your phone, anywhere.</p></div>
       <div class="feat"><div class="ico">✉</div><h4>Push Notifications</h4><p>Telegram and MetaTrader alerts for every basket close, grid level, news pause and protection event.</p></div>
       <div class="feat"><div class="ico">◷</div><h4>News &amp; Session Filters</h4><p>High-impact news filter using the built-in MT5 economic calendar, plus 24/7, Asian, London, New York, London+NY or custom trading hours.</p></div>
-      <div class="feat"><div class="ico">◎</div><h4>Daily Profit Target</h4><p>Optional target that pauses new entries for the rest of the day once reached — bank the win and stand down.</p></div>
-      <div class="feat"><div class="ico">⚖</div><h4>Auto Lot Sizing</h4><p>Optional automatic lot sizing by account balance, so position size scales sensibly with the account.</p></div>
-      <div class="feat"><div class="ico">⛨</div><h4>Margin &amp; Spread Guard</h4><p>Margin buffer check and spread filter before every new grid level — no reckless adds into thin or stretched markets.</p></div>
-      <div class="feat"><div class="ico">◈</div><h4>Price-Driven Logic</h4><p>No indicators, no curve-fitted entry logic. The system is price-driven and works in ranging and trending conditions alike, with configurable depth limits.</p></div>
-      <div class="feat"><div class="ico">▦</div><h4>Simple 4-Step Setup</h4><p>Attach to an XAUUSD chart, choose a risk mode, optionally add your Telegram bot — the panel shows everything the EA is doing in real time.</p></div>
+      <div class="feat"><div class="ico">◈</div><h4>Daily Profit Target</h4><p>Optional target that suspends new entries for the rest of the day once reached — bank the win and stand down.</p></div>
+      <div class="feat"><div class="ico">⚖</div><h4>Smart Lot Control</h4><p>Three lot modes — preset list, manual value or auto-sizing by balance — with an absolute per-position cap. Accounts below $5,000 are capped at 0.01 lot.</p></div>
+      <div class="feat"><div class="ico">⛨</div><h4>Margin &amp; Position Guards</h4><p>Position blocking below a configurable margin level, emergency close of the worst position near stop-out, and optional max adverse move and max position age guards.</p></div>
     </div>
   </div>
 </section>
